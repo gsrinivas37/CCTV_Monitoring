@@ -32,7 +32,13 @@ def generate_hours_html_on_date(root_dir, date_dir):
             images_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
             f.write('<b>%s</b>&emsp;<A href=\"./%s/persons\">Person images(%d)</A>&emsp;<A href=\"./%s\"> All Images (%d)</A><br>'%(hour_dir,hour_dir,len(person_list),hour_dir,len(images_list)))
         else:
-            f.write('<A href=\"./%s\">%s</A><br>'%(hour_dir,hour_dir))
+            images_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
+            currenthour = '%02dhour'%(datetime.datetime.now().hour)
+            print(hour_dir+currenthour)
+            if hour_dir==currenthour:
+                f.write('<A href=\"./%s\">%s</A> (%d Images. Person detection will happen at the end of hour)<br>'%(hour_dir,hour_dir,len(images_list)))
+            else:
+                f.write('<A href=\"./%s\">%s</A> (%d Images with no persons)<br>'%(hour_dir,hour_dir,len(images_list)))
 
     f.write('</body></html>')
     f.close()
