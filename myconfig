@@ -1,0 +1,22 @@
+server {
+    index index.html;
+    location / {
+	root /home/pi/www;
+    }
+	
+    location /GatePhotos {
+	root /mnt/hdd;
+    }
+	
+    location /StairsPhotos {
+	root /mnt/hdd;
+    }
+
+    location /GateVideos {
+	root /mnt/hdd;
+    }
+
+    location /StairsVideos {
+	root /mnt/hdd;
+    }
+}
