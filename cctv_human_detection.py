@@ -67,8 +67,8 @@ def get_files(parent_dir, extension):
 
 def runOnDirectory(root_dir,date,hour):
     #print("Running on.. "+root_dir)
-    cur_dir = root_dir+"/"+date+"/"+hour
-    tar_dir = root_dir+"/"+date+"/"+hour+"/"+"persons"
+    cur_dir = os.path.join(root_dir,date,hour)
+    tar_dir = os.path.join(root_dir,date,hour,"persons")
 
     images = get_files(cur_dir, "jpg")
     for x in images:
@@ -86,8 +86,12 @@ def runOnDirectory(root_dir,date,hour):
             if classes[i] == 1 and scores[i] > threshold:
                 if not os.path.exists(tar_dir):
                     os.mkdir(tar_dir)
-                img = cv2.resize(img, (288, 162))
-                cv2.imwrite(tar_dir+"/"+x, img)
+                thumbnail = os.path.join(cur_dir,"thumbnails",x)
+                if os.path.exists(thumbnail):
+                    os.symlink(thumbnail,tar_dir+"/"+x)
+                else:
+                    img = cv2.resize(img, (288, 162))
+                    cv2.imwrite(tar_dir+"/"+x, img)
                 break
                 #box = boxes[i]
                 #cv2.rectangle(img,(box[1],box[0]),(box[3],box[2]),(255,0,0),2)

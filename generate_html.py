@@ -75,7 +75,11 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     f.write('<body>\n')
     images = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
     for img_file in images:
-        f.write('<a target=\"_blank\" href=\"./%s\"><img src=\"./%s\" alt=\"Forest\"></a>\n'%(img_file,img_file))
+        thumbnail_file = os.path.join(root_dir,date_dir,hour_dir,"thumbnails",img_file)
+        if os.path.exists(thumbnail_file):
+            f.write('<a target=\"_blank\" href=\"./%s\"><img src=\"./thumbnails/%s\" alt=\"Forest\"></a>\n'%(img_file,img_file))
+        else:
+            f.write('<a target=\"_blank\" href=\"./%s\"><img src=\"./%s\" alt=\"Forest\"></a>\n'%(img_file,img_file))
     f.write('</body>\n</html>')
     f.close()
     
