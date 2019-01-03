@@ -2,6 +2,7 @@
 import os.path
 import os
 import datetime
+import shutil
 
 def addTitle(f, title):
     f.write('<title>%s</title>\n'%(title))
@@ -151,3 +152,13 @@ str = ("HTML files are updated at %s\n")%(now.strftime("%Y-%m-%d %H:%M"))
 f = open(log_file, "a")
 f.write(str)
 f.close()
+
+time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+total, used, free = shutil.disk_usage("/mnt/hdd")
+storage = '%d%% Full (%d GB Available)'%((used/total)*100,free// (2**30))
+
+f = open("/home/pi/CCTV_Monitoring/index.html", "r")
+out = open("/home/pi/www/index.html","w")
+html = (f.read())
+html = (html%(time,storage))
+out.write(html)
