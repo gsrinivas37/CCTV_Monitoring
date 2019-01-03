@@ -4,6 +4,7 @@ import os
 import datetime
 import glob
 import shutil
+import cv2
 
 stairs_root_dir = "/mnt/hdd/tmp/StairsCamera/"
 stairs_target_imgs_dir = "/mnt/hdd/StairsPhotos/"
@@ -34,7 +35,14 @@ def move_images(dt):
 		for img in imgs:
 			hr = get_hour(img)
 			ensure_dir_exists(stairs_target_imgs_dir+dt+"/"+hr)
-			shutil.move(img,stairs_target_imgs_dir+dt+"/"+hr+"/"+hr[:2]+"_"+get_min(img)+"_"+os.path.split(img)[1])
+			thumbnail_dir = os.path.join(stairs_target_imgs_dir+dt,hr,"thumbnails")
+			ensure_dir_exists(thumbnail_dir)
+			dest_path = os.path.join(stairs_target_imgs_dir+dt,hr,hr[:2]+"_"+get_min(img)+"_"+os.path.split(img)[1])
+			shutil.move(img,dest_path)
+			
+			cv2_img = cv2.imread(dest_path)
+			cv2_img = cv2.resize(cv2_img, (288, 162))
+			cv2.imwrite(os.path.join(thumbnail_dir,hr[:2]+"_"+get_min(img)+"_"+os.path.split(img)[1]), cv2_img)
 			
 def move_videos(dt):
 	vids = []
