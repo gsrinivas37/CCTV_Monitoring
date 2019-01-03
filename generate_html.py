@@ -25,7 +25,7 @@ def generate_main_html(root_dir):
     addTitle(f,os.path.split(root_dir)[1])
     f.write('<body>\n')
 
-    for date_dir in get_sub_dirs(root_dir):
+    for date_dir in get_sub_dirs(root_dir)[::-1]:
         f.write('<h2><A href=\"./%s\">%s</A></h2>\n'%(date_dir,date_dir))
 
     f.write('</body>\n</html>')
@@ -42,7 +42,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
     addTitle(f, title)
     f.write('<body>\n')
     hours = get_sub_dirs(root_dir+"/"+date_dir)
-    for hour_dir in hours:
+    for hour_dir in hours[::-1]:
         person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
         if os.path.exists(person_dir):
             person_list = get_files(person_dir,"jpg")
