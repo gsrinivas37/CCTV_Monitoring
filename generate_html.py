@@ -147,12 +147,6 @@ generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
 if now.hour != 0:
     generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
 
-log_file = "/home/pi/www/logs/generate_html/log.txt"
-str = ("HTML files are updated at %s\n")%(now.strftime("%Y-%m-%d %H:%M"))
-f = open(log_file, "a")
-f.write(str)
-f.close()
-
 time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 total, used, free = shutil.disk_usage("/mnt/hdd")
 storage = '%d%% Full (%d GB Available)'%((used/total)*100,free// (2**30))
