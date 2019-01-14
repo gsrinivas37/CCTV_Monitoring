@@ -109,7 +109,7 @@ if __name__ == "__main__":
     
     model_path = '/home/pi/tensorflow1/models/research/object_detection/ssdlite_mobilenet_v2_coco_2018_05_09/frozen_inference_graph.pb'
     odapi = DetectorAPI(path_to_ckpt=model_path)
-    threshold = 0.8
+    threshold = 0.5
     
     hour = '%02dhour'%(now.hour-1)
         
