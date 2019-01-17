@@ -48,7 +48,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
         if os.path.exists(person_dir):
             person_list = get_files(person_dir,"jpg")
             images_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
-            f.write('<h2>%s&emsp;<A href=\"./%s/persons\">Person images(%d)</A>&emsp;<A href=\"./%s\"> All Images (%d)</A></h2>\n'%(hour_dir,hour_dir,len(person_list),hour_dir,len(images_list)))
+            f.write('<h2>%s&emsp;<A href=\"./%s/persons\">Person images(%d)</A>&emsp;<A href=\"./%s\"> Other Images (%d)</A></h2>\n'%(hour_dir,hour_dir,len(person_list),hour_dir,len(images_list)-len(person_list)))
         else:
             images_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
             currenthour = '%02dhour'%(datetime.datetime.now().hour)
@@ -75,6 +75,11 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     addTitle(f, title)
     f.write('<body>\n')
     images = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
+    person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
+    if os.path.exists(person_dir):
+        person_list = get_files(person_dir,"jpg")
+        for p in person_list:
+            images.remove(p)
     for img_file in images:
         thumbnail_file = os.path.join(root_dir,date_dir,hour_dir,"thumbnails",img_file)
         if os.path.exists(thumbnail_file):
@@ -85,7 +90,6 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     f.close()
     
     #Generate HTML for persons directory
-    person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
     if os.path.exists(person_dir):
         person_list = get_files(person_dir,"jpg")
         hour_html = os.path.join(root_dir,date_dir,hour_dir,"persons","index.html")
