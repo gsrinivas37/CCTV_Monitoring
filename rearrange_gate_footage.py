@@ -55,7 +55,7 @@ def move_videos(dt):
 			shutil.move(vid,target_vids_dir+dt+"/"+hr+"/"+os.path.split(vid)[1])
 	
 date_dirs = get_sub_dirs(root_dir)
-
+print("\n\nRunning rearrange-gate-photos at:"+datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
 for dt in date_dirs:
 	dt_path = root_dir+dt
 			

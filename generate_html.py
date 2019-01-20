@@ -160,3 +160,5 @@ out = open("/home/pi/www/index.html","w")
 html = (f.read())
 html = (html%(time,storage))
 out.write(html)
+
+print("Generate html ran at:"+time)

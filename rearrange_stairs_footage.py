@@ -29,7 +29,7 @@ def move_images(dt):
 	for img in  glob.iglob(dt_path+'/**/*.jpg', recursive=True):
 		imgs.append(img)
 	
-	#print("No. of images to be moved are :"+str(len(imgs)))
+	print("No. of images to be moved are :"+str(len(imgs)))
 	if len(imgs)!=0:
 		ensure_dir_exists(stairs_target_imgs_dir+dt)
 		for img in imgs:
@@ -49,7 +49,7 @@ def move_videos(dt):
 	for vid in  glob.iglob(dt_path+'/**/*.mp4', recursive=True):
 		vids.append(vid)
 	
-	#print("No. of videos to be moved are :"+str(len(vids)))
+	print("No. of videos to be moved are :"+str(len(vids)))
 	if len(vids)!=0:
 		ensure_dir_exists(stairs_target_vids_dir+dt)
 		for vid in vids:
@@ -58,7 +58,7 @@ def move_videos(dt):
 			shutil.move(vid,stairs_target_vids_dir+dt+"/"+hr+"/"+os.path.split(vid)[1])
 	
 date_dirs = get_sub_dirs(stairs_root_dir)
-
+print("\n\nRunning rearrange-stairs-photos at:"+datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
 for dt in date_dirs:
 	dt_path = stairs_root_dir+dt
 	#print(dt_path)
