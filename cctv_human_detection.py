@@ -66,7 +66,7 @@ def get_files(parent_dir, extension):
     return [x for x in os.listdir(parent_dir) if x.endswith(extension)]
 
 def runOnDirectory(root_dir,date,hour):
-    #print("Running on.. "+root_dir)
+    print("Running on.. "+root_dir)
     cur_dir = os.path.join(root_dir,date,hour)
     tar_dir = os.path.join(root_dir,date,hour,"persons")
 
@@ -74,8 +74,12 @@ def runOnDirectory(root_dir,date,hour):
     for x in images:
         #print(x)
         
-        img = cv2.imread(cur_dir+"/"+x)
-        img = cv2.resize(img, (1280, 720))
+        try:
+            img = cv2.imread(cur_dir+"/"+x)
+            img = cv2.resize(img, (1280, 720))
+        except Exception as e:
+            print("Error reading file:"+x)
+            continue
 
         boxes, scores, classes, num = odapi.processFrame(img)
 
@@ -121,6 +125,7 @@ if __name__ == "__main__":
     str = ("Person detect ran at %s on %d images and took %d minutes and %d seconds\n")%(now.strftime("%Y-%m-%d %H:%M"),total,total_time/60, total_time%60)
     f = open(log_file, "a")
     f.write(str)
+    print(str)
     f.close()
     
     
