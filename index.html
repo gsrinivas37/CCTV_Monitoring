@@ -4,13 +4,27 @@
         <head><h1><center>Narahari Home CCTV Monitoring System</center></h1>
             <center><b>Last Updated on : %s&emsp;Storage: %s</b></center>
         </head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+        </style>
     </head>
     <body>
-        <h2><a href='./GatePhotos'> Gate Photos</a></h2>
-        <h2><a href='./StairsPhotos'> Stairs Photos</a></h2>
-        <h2><a href='./GateVideos'> Gate Videos</a></h2>
-        <h2><a href='./StairsVideos'> Stairs Videos</a></h2>
+        <br>
+        <table style=width:100%%>
+            <tr>
+                <th>Photos</th>
+                <th>Videos</th>
+            </tr>
+            %s
+        </table>
         <h2><a href='./logs/internet_autologin/log.txt'> Internet Autologin</a></h2>
-	<h2><a href='./logs'> Logs </a></h2>
+        <h2><a href='./logs'> Logs </a></h2>
     </body>
 </html>
