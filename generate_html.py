@@ -124,28 +124,28 @@ now = datetime.datetime.now()
 date = now.strftime("%Y-%m-%d")
 
 root_dir = "/mnt/hdd/GatePhotos"
-generate_main_html(root_dir)
+#generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
 if now.hour != 0:
     generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
     
 root_dir = "/mnt/hdd/GateVideos"
-generate_main_html(root_dir)
+#generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
 if now.hour != 0:
     generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
 
 root_dir = "/mnt/hdd/StairsPhotos"
-generate_main_html(root_dir)
+#generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
 if now.hour != 0:
     generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
     
 root_dir = "/mnt/hdd/StairsVideos"
-generate_main_html(root_dir)
+#generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
 if now.hour != 0:
@@ -160,15 +160,15 @@ for dt in get_sub_dirs("/mnt/hdd/GatePhotos")[::-1]:
     row_str+= "<tr>\n"
     row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
     if os.path.exists("/mnt/hdd/StairsPhotos/"+dt): 
-        row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+        row_str+= ("<td><h2><a href='./StairsPhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
     else:
         row_str+= "<td><h2>Not Available</h2></td>"
     if os.path.exists("/mnt/hdd/GateVideos/"+dt): 
-        row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+        row_str+= ("<td><h2><a href='./GateVideos/%s'> %s </a></h2></td>\n"%(dt,dt))
     else:
         row_str+= "<td><h2>Not Available</h2></td>"
     if os.path.exists("/mnt/hdd/StairsVideos/"+dt): 
-        row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+        row_str+= ("<td><h2><a href='./StairsVideos/%s'> %s </a></h2></td>\n"%(dt,dt))
     else:
         row_str+= "<td><h2>Not Available</h2></td>"
     row_str+="</tr>\n"
