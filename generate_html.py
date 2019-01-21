@@ -188,7 +188,7 @@ row_temp = (row.read())
 row_str = ""
 for log in get_files("/home/pi/www/logs/gate","txt"):
     dt = log[4:-4] 
-    temp=(row_temp%(dt,dt,dt,dt,dt,dt,dt,dt))
+    temp=(row_temp%(dt,dt,dt,dt,dt,dt,dt,dt,dt,dt))
     row_str+=temp
 
 html = (html%(row_str))
