@@ -161,4 +161,17 @@ html = (f.read())
 html = (html%(time,storage))
 out.write(html)
 
+f = open("/home/pi/CCTV_Monitoring/log_index.html", "r")
+out = open("/home/pi/www/logs/index.html","w")
+html = (f.read())
+
+row = open("/home/pi/CCTV_Monitoring/row.html", "r")
+row_temp = (row.read())
+row_str = ""
+for log in get_files("/home/pi/www/logs/gate","txt"):
+    row_str.append(row_temp%(log[4:]))
+
+html = (html%(row_str))
+out.write(html)
+
 print("Generate html ran at:"+time)
