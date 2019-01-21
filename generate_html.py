@@ -155,10 +155,28 @@ time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 total, used, free = shutil.disk_usage("/mnt/hdd")
 storage = '%d%% Full (%d GB Available)'%((used/total)*100,free// (2**30))
 
+row_str = ""
+for dt in get_sub_dirs("/mnt/hdd/GatePhotos")[::-1]:
+    row_str+= "<tr>\n"
+    row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+    if os.path.exists("/mnt/hdd/StairsPhotos/"+dt): 
+        row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+    else:
+        row_str+= "<td><h2>Not Available</h2></td>"
+    if os.path.exists("/mnt/hdd/GateVideos/"+dt): 
+        row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+    else:
+        row_str+= "<td><h2>Not Available</h2></td>"
+    if os.path.exists("/mnt/hdd/StairsVideos/"+dt): 
+        row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
+    else:
+        row_str+= "<td><h2>Not Available</h2></td>"
+    row_str+="</tr>\n"
+
 f = open("/home/pi/CCTV_Monitoring/index.html", "r")
 out = open("/home/pi/www/index.html","w")
 html = (f.read())
-html = (html%(time,storage))
+html = (html%(time,storage,row_str))
 out.write(html)
 
 f = open("/home/pi/CCTV_Monitoring/log_index.html", "r")
@@ -168,7 +186,7 @@ html = (f.read())
 row = open("/home/pi/CCTV_Monitoring/row.html", "r")
 row_temp = (row.read())
 row_str = ""
-for log in get_files("/home/pi/www/logs/gate","txt")[::-1]:
+for log in get_files("/home/pi/www/logs/gate","txt"):
     dt = log[4:-4] 
     temp=(row_temp%(dt,dt,dt,dt,dt,dt,dt,dt))
     row_str+=temp
