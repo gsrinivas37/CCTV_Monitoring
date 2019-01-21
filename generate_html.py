@@ -168,8 +168,10 @@ html = (f.read())
 row = open("/home/pi/CCTV_Monitoring/row.html", "r")
 row_temp = (row.read())
 row_str = ""
-for log in get_files("/home/pi/www/logs/gate","txt"):
-    row_str.append(row_temp%(log[4:]))
+for log in get_files("/home/pi/www/logs/gate","txt")[::-1]:
+    dt = log[4:-4] 
+    temp=(row_temp%(dt,dt,dt,dt,dt,dt,dt,dt))
+    row_str+=temp
 
 html = (html%(row_str))
 out.write(html)
