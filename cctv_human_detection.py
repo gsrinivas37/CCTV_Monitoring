@@ -66,10 +66,10 @@ def get_files(parent_dir, extension):
     return [x for x in os.listdir(parent_dir) if x.endswith(extension)]
 
 def runOnDirectory(root_dir,date,hour):
-    print("Running on.. "+root_dir)
     cur_dir = os.path.join(root_dir,date,hour)
     tar_dir = os.path.join(root_dir,date,hour,"persons")
 
+    print("Running on.. "+cur_dir)
     images = get_files(cur_dir, "jpg")
     for x in images:
         #print(x)
@@ -105,7 +105,7 @@ def runOnDirectory(root_dir,date,hour):
 
 if __name__ == "__main__":
     start_time = time.time()
-    now = datetime.datetime.now()-datetime.timedelta(hours=1)
+    now = datetime.datetime.now()
     lasthour = now-datetime.timedelta(hours=1)
     date = lasthour.strftime("%Y-%m-%d")
     
