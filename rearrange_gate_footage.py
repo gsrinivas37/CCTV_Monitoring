@@ -62,9 +62,3 @@ for dt in date_dirs:
 	move_images(dt)
 	move_videos(dt)
 
-	
-	
-			
-			
-		
-

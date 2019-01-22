@@ -123,33 +123,32 @@ def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
 now = datetime.datetime.now()
 date = now.strftime("%Y-%m-%d")
 
+lasthour = now - datetime.timedelta(hours=1)
+lastdate = lasthour.strftime("%Y-%m-%d")
+
 root_dir = "/mnt/hdd/GatePhotos"
 #generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
-if now.hour != 0:
-    generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
+generate_img_html_on_date_hour(root_dir,lastdate,'%02dhour'%(lasthour.hour-1))
     
 root_dir = "/mnt/hdd/GateVideos"
 #generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
-if now.hour != 0:
-    generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
+generate_vid_html_on_date_hour(root_dir,lastdate,'%02dhour'%(lasthour.hour-1))
 
 root_dir = "/mnt/hdd/StairsPhotos"
 #generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
-if now.hour != 0:
-    generate_img_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
+generate_img_html_on_date_hour(root_dir,lastdate,'%02dhour'%(lasthour.hour-1))
     
 root_dir = "/mnt/hdd/StairsVideos"
 #generate_main_html(root_dir)
 generate_hours_html_on_date(root_dir,date)
 generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour))
-if now.hour != 0:
-    generate_vid_html_on_date_hour(root_dir,date,'%02dhour'%(now.hour-1))
+generate_vid_html_on_date_hour(root_dir,lastdate,'%02dhour'%(lasthour.hour-1))
 
 time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 total, used, free = shutil.disk_usage("/mnt/hdd")

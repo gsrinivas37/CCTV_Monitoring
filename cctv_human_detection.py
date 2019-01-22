@@ -105,17 +105,15 @@ def runOnDirectory(root_dir,date,hour):
 
 if __name__ == "__main__":
     start_time = time.time()
-    now = datetime.datetime.now()
-    date = now.strftime("%Y-%m-%d")
-    
-    if now.hour==0:
-        sys.exit(0)
+    now = datetime.datetime.now()-datetime.timedelta(hours=1)
+    lasthour = now-datetime.timedelta(hours=1)
+    date = lasthour.strftime("%Y-%m-%d")
     
     model_path = '/home/pi/tensorflow1/models/research/object_detection/ssdlite_mobilenet_v2_coco_2018_05_09/frozen_inference_graph.pb'
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.5
     
-    hour = '%02dhour'%(now.hour-1)
+    hour = '%02dhour'%(lasthour.hour)
         
     total = runOnDirectory("/mnt/hdd/GatePhotos",date,hour)
     total = total + runOnDirectory("/mnt/hdd/StairsPhotos",date,hour)
