@@ -41,7 +41,7 @@ def move_images(dt):
 			shutil.move(img,dest_path)
 			
 			cv2_img = cv2.imread(dest_path)
-			cv2_img = cv2.resize(cv2_img, (288, 162))
+			cv2_img = cv2.resize(cv2_img, (320, 180))
 			cv2.imwrite(os.path.join(thumbnail_dir,hr[:2]+"_"+get_min(img)+"_"+os.path.split(img)[1]), cv2_img)
 			
 def move_videos(dt):

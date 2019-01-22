@@ -94,7 +94,7 @@ def runOnDirectory(root_dir,date,hour):
                 if os.path.exists(thumbnail):
                     os.symlink(thumbnail,tar_dir+"/"+x)
                 else:
-                    img = cv2.resize(img, (288, 162))
+                    img = cv2.resize(img, (320, 180))
                     cv2.imwrite(tar_dir+"/"+x, img)
                 break
                 #box = boxes[i]
