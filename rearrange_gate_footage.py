@@ -34,7 +34,11 @@ def move_images(dt):
 			thumbnail_dir = os.path.join(target_imgs_dir+dt,hr,"thumbnails")
 			ensure_dir_exists(thumbnail_dir)
 			dest_path = os.path.join(target_imgs_dir+dt,hr,os.path.split(img)[1])
-			shutil.move(img,dest_path)
+			try:
+				shutil.move(img,dest_path)
+			except:
+				print("Error moving file:"+img)
+				continue
 			
 			cv2_img = cv2.imread(dest_path)
 			cv2_img = cv2.resize(cv2_img, (400, 225))
