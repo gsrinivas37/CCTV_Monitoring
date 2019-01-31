@@ -34,7 +34,7 @@ def generate_main_html(root_dir):
 
 def get_sub_dirs(root_dir):
     return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
-    
+
 def generate_hours_html_on_date(root_dir, date_dir):
     date_html = root_dir+"/"+date_dir+"/index.html"    
     f = open(date_html, "w")
@@ -74,6 +74,39 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
     addTitle(f, title)
     f.write('<body>\n')
+    f.write('<h2>')
+    prev_link = None
+    prev_hour = None
+    next_link = None
+    next_hour = None
+    if hour_dir != "00hour":
+        prev_hour = '%02dhour'%(int(hour_dir[0:2])-1)
+        person_dir = os.path.join(root_dir,date_dir,prev_hour,"persons")
+        if os.path.exists(person_dir):
+            prev_link = "../"+prev_hour+"/persons"
+        else:
+            prev_link = "../"+prev_hour
+
+    if hour_dir != "23hour":
+        next_hour = '%02dhour'%(int(hour_dir[0:2])+1)
+        person_dir = os.path.join(root_dir,date_dir,next_hour,"persons")
+        if os.path.exists(person_dir):
+            next_link = "../"+next_hour+"/persons"
+        person_dir = os.path.join(root_dir,date_dir,next_hour)
+        if os.path.exists(person_dir):
+            next_link = "../"+next_hour
+    
+    video_link = "../../../"+os.path.split(root_dir)[1].replace("Photos","Videos")+"/"+date_dir+"/"+hour_dir 
+
+    f.write('<h2>')
+    if prev_link !=None:
+        f.write('<div style=\"float: left\"><a href=\"%s\"> Previous</a> (%s)</div>'%(prev_link, prev_hour))
+    if next_link !=None:
+        f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
+        
+    f.write('<div style=\"margin: auto; width: 100px;\"><a href=\"%s\"> Videos</a></div>'%(video_link))
+
+    f.write('</h2>')
     images = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
     person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
     if os.path.exists(person_dir):

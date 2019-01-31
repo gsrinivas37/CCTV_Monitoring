@@ -3,10 +3,10 @@ import datetime
 import shutil
 
 expiry_date_dictionary = {
-  "/mnt/hdd/GatePhotos": 45,
+  "/mnt/hdd/GatePhotos": 60,
   "/mnt/hdd/StairsPhotos": 45,
-  "/mnt/hdd/GateVideos": 25,
-  "/mnt/hdd/StairsVideos": 20,
+  "/mnt/hdd/GateVideos": 30,
+  "/mnt/hdd/StairsVideos": 25,
   "/mnt/hdd/tmp/GateCamera": 0,
   "/mnt/hdd/tmp/StairsCamera": 0
 }
