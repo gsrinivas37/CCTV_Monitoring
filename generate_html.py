@@ -64,16 +64,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
     f.write('</body>\n</html>')
     f.close()
 
-def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
-    if not os.path.exists(os.path.join(root_dir,date_dir,hour_dir)):
-        return
-        
-    hour_html = root_dir+"/"+date_dir+"/"+hour_dir+"/index.html"
-    f = open(hour_html, "w")
-    f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
-    title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
-    addTitle(f, title)
-    f.write('<body>\n')
+def generate_links(root_dir, date_dir,hour_dir, f):
     f.write('<h2>')
     prev_link = None
     prev_hour = None
@@ -87,26 +78,39 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
         else:
             prev_link = "../"+prev_hour
 
-    if hour_dir != "23hour":
-        next_hour = '%02dhour'%(int(hour_dir[0:2])+1)
-        person_dir = os.path.join(root_dir,date_dir,next_hour,"persons")
-        if os.path.exists(person_dir):
-            next_link = "../"+next_hour+"/persons"
+if hour_dir != "23hour":
+    next_hour = '%02dhour'%(int(hour_dir[0:2])+1)
+    person_dir = os.path.join(root_dir,date_dir,next_hour,"persons")
+    if os.path.exists(person_dir):
+        next_link = "../"+next_hour+"/persons"
         person_dir = os.path.join(root_dir,date_dir,next_hour)
         if os.path.exists(person_dir):
             next_link = "../"+next_hour
-    
-    video_link = "../../../"+os.path.split(root_dir)[1].replace("Photos","Videos")+"/"+date_dir+"/"+hour_dir 
 
-    f.write('<h2>')
-    if prev_link !=None:
-        f.write('<div style=\"float: left\"><a href=\"%s\"> Previous</a> (%s)</div>'%(prev_link, prev_hour))
+video_link = "../../../"+os.path.split(root_dir)[1].replace("Photos","Videos")+"/"+date_dir+"/"+hour_dir
+
+f.write('<h2>')
+if prev_link !=None:
+    f.write('<div style=\"float: left\"><a href=\"%s\"> Previous</a> (%s)</div>'%(prev_link, prev_hour))
     if next_link !=None:
         f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
-        
-    f.write('<div style=\"margin: auto; width: 100px;\"><a href=\"%s\"> Videos</a></div>'%(video_link))
 
-    f.write('</h2>')
+f.write('<div style=\"margin: auto; width: 100px;\"><a href=\"%s\"> Videos</a></div>'%(video_link))
+
+f.write('</h2>')
+
+def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
+    if not os.path.exists(os.path.join(root_dir,date_dir,hour_dir)):
+        return
+        
+    hour_html = root_dir+"/"+date_dir+"/"+hour_dir+"/index.html"
+    f = open(hour_html, "w")
+    f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
+    title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
+    addTitle(f, title)
+    f.write('<body>\n')
+
+    generate_links(root_dir, date_dir,hour_dir,f)
     images = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
     person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
     if os.path.exists(person_dir):
@@ -131,6 +135,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
         title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
         addTitle(f, title)
         f.write('<body>\n')
+        generate_links(root_dir, date_dir,hour_dir,f)
         for img_file in person_list:
             f.write('<a target=\"_blank\" href=\"../%s\"><img src=\"./%s\" alt=\"Forest\"></a>\n'%(img_file,img_file))
         f.write('</body>\n</html>')
