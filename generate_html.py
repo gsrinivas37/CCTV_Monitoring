@@ -4,9 +4,18 @@ import os
 import datetime
 import shutil
 
-def addTitle(f, title):
+def addTitle(f, main, dt="", hr=""):
+    title = main
+    link = '<a href=\"../../\">%s</a>'%(main)
+    if dt!="":
+        title = '%s (%s)'%(title,dt)
+        link = '%s <a href=\"../\"> (%s) </a>'%(dt)
+    if hr!="":
+        title = '%s (%s)'%(title,hr)
+        link = '%s <a href=\"../\"> (%s) </a>'%(hr)
+
     f.write('<title>%s</title>\n'%(title))
-    f.write('<head><h1><center>%s</center></h1></head>\n'%(title))
+    f.write('<head><h1><center>%s</center></h1></head>\n'%(link))
     
 def GetHumanReadable(size,precision=2):
     suffixes=['B','KB','MB','GB','TB']
@@ -39,8 +48,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
     date_html = root_dir+"/"+date_dir+"/index.html"    
     f = open(date_html, "w")
     f.write('<html>\n')
-    title = '%s (%s)'%(os.path.split(root_dir)[1],date_dir)
-    addTitle(f, title)
+    addTitle(f, os.path.split(root_dir)[1],date_dir)
     f.write('<body>\n')
     hours = get_sub_dirs(root_dir+"/"+date_dir)
     for hour_dir in hours[::-1]:
@@ -105,8 +113,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     hour_html = root_dir+"/"+date_dir+"/"+hour_dir+"/index.html"
     f = open(hour_html, "w")
     f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
-    title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
-    addTitle(f, title)
+    addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir)
     f.write('<body>\n')
 
     generate_links(root_dir, date_dir,hour_dir,f)
@@ -131,8 +138,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
         hour_html = os.path.join(root_dir,date_dir,hour_dir,"persons","index.html")
         f = open(hour_html, "w")
         f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
-        title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
-        addTitle(f, title)
+        addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir)
         f.write('<body>\n')
         generate_links(root_dir, date_dir,hour_dir,f)
         for img_file in person_list:
@@ -146,8 +152,7 @@ def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
     hour_html = root_dir+"/"+date_dir+"/"+hour_dir+"/index.html"
     f = open(hour_html, "w")
     f.write('<html>\n')
-    title = '%s (%s) (%s)'%(os.path.split(root_dir)[1],date_dir, hour_dir)
-    addTitle(f, title)
+    addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir)
     f.write('<body>\n')
     vids = os.listdir(root_dir+"/"+date_dir+"/"+hour_dir)
     for vid in vids:
