@@ -9,10 +9,10 @@ def addTitle(f, main, dt="", hr=""):
     link = '<a href=\"../../\">%s</a>'%(main)
     if dt!="":
         title = '%s (%s)'%(title,dt)
-        link = '%s <a href=\"../\"> (%s) </a>'%(title, dt)
+        link = '%s <a href=\"../\"> (%s) </a>'%(link, dt)
     if hr!="":
         title = '%s (%s)'%(title,hr)
-        link = '%s <a href=\"../\"> (%s) </a>'%(title, hr)
+        link = '%s <a href=\"../\"> (%s) </a>'%(link, hr)
 
     f.write('<title>%s</title>\n'%(title))
     f.write('<head><h1><center>%s</center></h1></head>\n'%(link))
