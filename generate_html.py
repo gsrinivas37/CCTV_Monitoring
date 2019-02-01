@@ -72,7 +72,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
     f.write('</body>\n</html>')
     f.close()
 
-def generate_links(root_dir, date_dir,hour_dir, f):
+def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
     isPhotoDir = "Photos" in os.path.split(root_dir)[1]
     isGateDir = "Gate" in os.path.split(root_dir)[1]
     f.write('<h2>')
@@ -87,6 +87,9 @@ def generate_links(root_dir, date_dir,hour_dir, f):
             prev_link = "../"+prev_hour+"/persons"
         else:
             prev_link = "../"+prev_hour
+        
+        if isPersonDir == True:
+            prev_link = "../"+prev_link
 
     if hour_dir != "23hour":
         next_hour = '%02dhour'%(int(hour_dir[0:2])+1)
@@ -97,14 +100,20 @@ def generate_links(root_dir, date_dir,hour_dir, f):
             other_dir = os.path.join(root_dir,date_dir,next_hour)
             if os.path.exists(other_dir):
                 next_link = "../"+next_hour
+        if next_link!=None and isPersonDir == True:
+            next_link = "../"+next_link
 
     str1 = "Photos" if isPhotoDir else "Videos"
     str2 = "Videos" if isPhotoDir else "Photos"
     video_link = "../../../"+os.path.split(root_dir)[1].replace(str1,str2)+"/"+date_dir+"/"+hour_dir
+    if isPersonDir == True:
+        video_link = "../"+video_link
 
     str3 = "Gate" if isGateDir else "Stairs"
     str4 = "Stairs" if isGateDir else "Gate"
     othercam_link = "../../../"+os.path.split(root_dir)[1].replace(str3,str4)+"/"+date_dir+"/"+hour_dir
+    if isPersonDir == True:
+        othercam_link = "../"+othercam_link
 
     f.write('<h2>')
     if prev_link !=None:
@@ -149,7 +158,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
         f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
         addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir)
         f.write('<body>\n')
-        generate_links(root_dir, date_dir,hour_dir,f)
+        generate_links(root_dir, date_dir,hour_dir,f, isPersonDir = True)
         for img_file in person_list:
             f.write('<a target=\"_blank\" href=\"../%s\"><img src=\"./%s\" alt=\"Forest\"></a>\n'%(img_file,img_file))
         f.write('</body>\n</html>')
