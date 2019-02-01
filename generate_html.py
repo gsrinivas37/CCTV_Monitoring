@@ -4,16 +4,24 @@ import os
 import datetime
 import shutil
 
-def addTitle(f, main, dt="", hr=""):
+def addTitle(f, main, dt="", hr="", personDir = None):
     title = main
     link = '<a href=\"../\">%s</a>'%(main)
     if dt!="":
         title = '%s (%s)'%(title,dt)
-        link = '<a href=\"../../\">%s</a> (%s) </a>'%(main, dt)
+        if personDir = "persons":
+            link = '<a href=\"../../../\">%s</a> (%s) </a>'%(main, dt)
+        else:
+            link = '<a href=\"../../\">%s</a> (%s) </a>'%(main, dt)
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
-        link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
+        if personDir = "persons":
+            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
+        else:
+            link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
 
+    if personDir!=None:
+        title = '%s (%s)'%(personDir)
     f.write('<title>%s</title>\n'%(title))
     f.write('<head><h1><center>%s</center></h1></head>\n'%(link))
     
