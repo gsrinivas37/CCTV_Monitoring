@@ -145,7 +145,7 @@ def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
     if next_link !=None:
         f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
 
-    f.write('<div style=\"margin: auto; width: 150px;\"><a href=\"%s\">%s</a>&emsp;&emsp;<a href=\"%s\">%s</a></div>'%(other_link,str2,othercam_link,str4))
+    f.write('<div style=\"margin: auto; width: 250px;\"><a href=\"%s\">%s</a>&emsp;&emsp;<a href=\"%s\">%s</a></div>'%(other_link,str2,othercam_link,str4))
     f.write('</h2>')
 
 def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
