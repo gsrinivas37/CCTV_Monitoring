@@ -230,16 +230,14 @@ def generate_for_hours(hrs=2):
 
 def generate_all():
     for root_dir in photo_root_dirs:
-        date_dirs = get_sub_dirs(root_dir):
-        for dt_dir in date_dirs:
+        for dt_dir in get_sub_dirs(root_dir):
             generate_hours_html_on_date(root_dir,dt_dir)
             hour_dirs = get_sub_dirs(os.path.join(root_dir,dt_dir)):
             for hr_dir in hour_dirs:
                 generate_img_html_on_date_hour(root_dir,dt_dir,hr_dir)
 
     for root_dir in video_root_dirs:
-        date_dirs = get_sub_dirs(root_dir):
-        for dt_dir in date_dirs:
+        for dt_dir in get_sub_dirs(root_dir):
             generate_hours_html_on_date(root_dir,dt_dir)
             hour_dirs = get_sub_dirs(os.path.join(root_dir,dt_dir)):
             for hr_dir in hour_dirs:
