@@ -16,8 +16,8 @@ def addTitle(f, main, dt="", hr="", personDir = None):
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
         if personDir == "Persons":
-            link = '<a href=\"../../../../../\">%s</a>&nbsp<a href=\"../../../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr,personDir)
-        if personDir==None:
+            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr,personDir)
+        else if personDir==None:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
         else:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr, personDir)
