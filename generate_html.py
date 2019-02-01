@@ -74,6 +74,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
 
 def generate_links(root_dir, date_dir,hour_dir, f):
     isPhotoDir = "Photos" in os.path.split(root_dir)[1]
+    isGateDir = "Gate" in os.path.split(root_dir)[1]
     f.write('<h2>')
     prev_link = None
     prev_hour = None
@@ -101,13 +102,17 @@ def generate_links(root_dir, date_dir,hour_dir, f):
     str2 = "Videos" if isPhotoDir else "Photos"
     video_link = "../../../"+os.path.split(root_dir)[1].replace(str1,str2)+"/"+date_dir+"/"+hour_dir
 
+    str3 = "Gate" if isGateDir else "Stairs"
+    str4 = "Stairs" if isGateDir else "Gate"
+    othercam_link = "../../../"+os.path.split(root_dir)[1].replace(str3,str4)+"/"+date_dir+"/"+hour_dir
+
     f.write('<h2>')
     if prev_link !=None:
         f.write('<div style=\"float: left\"><a href=\"%s\"> Previous</a> (%s)</div>'%(prev_link, prev_hour))
     if next_link !=None:
         f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
 
-    f.write('<div style=\"margin: auto; width: 100px;\">Links to: <a href=\"%s\">%s</a></div>'%(video_link,str2))
+    f.write('<div style=\"margin: auto; width: 500px;\">Links to: <a href=\"%s\">%s</a>&nbsp<a href=\"%s\">%s</a></div>'%(othercam_link,str4,video_link,str2))
     f.write('</h2>')
 
 def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
