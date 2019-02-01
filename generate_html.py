@@ -126,7 +126,7 @@ def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
     othercam_link = "../../../"+os.path.split(root_dir)[1].replace(str3,str4)+"/"+date_dir+"/"+hour_dir
     othercam_person_dir = os.path.join(root_dir.replace(str3,str4),date_dir,hour_dir,"persons")
     if os.path.exists(othercam_person_dir):
-        othercam_link = othercam_link+"./persons"
+        othercam_link = othercam_link+"/persons"
 
     if isPersonDir == True:
         othercam_link = "../"+othercam_link
