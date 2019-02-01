@@ -100,8 +100,8 @@ def generate_links(root_dir, date_dir,hour_dir, f):
     f.write('<h2>')
     if prev_link !=None:
         f.write('<div style=\"float: left\"><a href=\"%s\"> Previous</a> (%s)</div>'%(prev_link, prev_hour))
-        if next_link !=None:
-            f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
+    if next_link !=None:
+        f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
 
     f.write('<div style=\"margin: auto; width: 100px;\"><a href=\"%s\"> Videos</a></div>'%(video_link))
     f.write('</h2>')
