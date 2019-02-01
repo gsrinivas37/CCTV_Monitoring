@@ -265,7 +265,9 @@ html = (f.read())
 row = open("/home/pi/CCTV_Monitoring/row.html", "r")
 row_temp = (row.read())
 row_str = ""
-for log in get_files("/home/pi/www/logs/gate","txt"):
+logs = get_files("/home/pi/www/logs/gate","txt")
+logs.sort(reverse=True)
+for log in logs:
     dt = log[4:-4] 
     temp=(row_temp%(dt,dt,dt,dt,dt,dt,dt,dt,dt,dt))
     row_str+=temp
