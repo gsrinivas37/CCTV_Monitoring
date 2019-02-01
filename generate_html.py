@@ -213,8 +213,6 @@ def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
 def generate_at_time(now,generate_hours_html=False):
     cur_hour = '%02dhour'%(now.hour)
     date = now.strftime("%Y-%m-%d")
-    print("Generate at time: "+ str(now))
-
     for root_dir in photo_root_dirs:
         if generate_hours_html == True:
             generate_hours_html_on_date(root_dir,date)
