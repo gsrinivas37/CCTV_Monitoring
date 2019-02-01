@@ -223,10 +223,10 @@ def generate_at_time(now,generate_hours_html=False):
             generate_hours_html_on_date(root_dir,date)
         generate_vid_html_on_date_hour(root_dir,date,cur_hour)
 
-def generate_for_hours(hrs=2):
+def generate_for_hours(hrs=3):
     for i in range(hrs):
-        time = datetime.datetime.now() - datetime.timedelta(hours=i)
-        generate_at_time(time, generate_hours_html=(i==0))
+        now = datetime.datetime.now() - datetime.timedelta(hours=i)
+        generate_at_time(now, generate_hours_html=(i==0))
 
 def generate_all():
     for root_dir in photo_root_dirs:
