@@ -230,6 +230,7 @@ def generate_for_hours(hrs=2):
     while(hr<=hrs):
         now = now - datetime.timedelta(hours=hr)
         generate_at_time(now)
+        hr = hr + 1
 
 def generate_all():
     for root_dir in photo_root_dirs:
