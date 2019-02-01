@@ -227,7 +227,7 @@ def generate_at_time(now,generate_hours_html=False):
 def generate_for_hours(hrs=2):
     now = datetime.datetime.now()
     generate_at_time(now, generate_hours_html=True)
-    hr = 1
+    hr = 0
     while(hr<=hrs):
         now = datetime.datetime.now() - datetime.timedelta(hours=hr)
         generate_at_time(now)
