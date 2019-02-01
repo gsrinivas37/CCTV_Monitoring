@@ -73,6 +73,7 @@ def generate_hours_html_on_date(root_dir, date_dir):
     f.close()
 
 def generate_links(root_dir, date_dir,hour_dir, f):
+    isPhotoDir = "Photos" in os.path.split(root_dir)[1]
     f.write('<h2>')
     prev_link = None
     prev_hour = None
@@ -81,7 +82,7 @@ def generate_links(root_dir, date_dir,hour_dir, f):
     if hour_dir != "00hour":
         prev_hour = '%02dhour'%(int(hour_dir[0:2])-1)
         person_dir = os.path.join(root_dir,date_dir,prev_hour,"persons")
-        if os.path.exists(person_dir):
+        if isPhotoDir and os.path.exists(person_dir):
             prev_link = "../"+prev_hour+"/persons"
         else:
             prev_link = "../"+prev_hour
@@ -89,14 +90,16 @@ def generate_links(root_dir, date_dir,hour_dir, f):
     if hour_dir != "23hour":
         next_hour = '%02dhour'%(int(hour_dir[0:2])+1)
         person_dir = os.path.join(root_dir,date_dir,next_hour,"persons")
-        if os.path.exists(person_dir):
+        if isPhotoDir and os.path.exists(person_dir):
             next_link = "../"+next_hour+"/persons"
         else:
             other_dir = os.path.join(root_dir,date_dir,next_hour)
             if os.path.exists(other_dir):
                 next_link = "../"+next_hour
 
-    video_link = "../../../"+os.path.split(root_dir)[1].replace("Photos","Videos")+"/"+date_dir+"/"+hour_dir
+    str1 = "Photos" if isPhotoDir else "Videos"
+    str2 = "Videos" if isPhotoDir else "Photos"
+    video_link = "../../../"+os.path.split(root_dir)[1].replace(str1,str2)+"/"+date_dir+"/"+hour_dir
 
     f.write('<h2>')
     if prev_link !=None:
@@ -104,7 +107,7 @@ def generate_links(root_dir, date_dir,hour_dir, f):
     if next_link !=None:
         f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
 
-    f.write('<div style=\"margin: auto; width: 100px;\"><a href=\"%s\"> Videos</a></div>'%(video_link))
+    f.write('<div style=\"margin: auto; width: 100px;\"><a href=\"%s\">%s</a></div>'%(video_link,str2))
     f.write('</h2>')
 
 def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
@@ -155,6 +158,7 @@ def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
     f.write('<html>\n')
     addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir)
     f.write('<body>\n')
+    generate_links(root_dir, date_dir,hour_dir,f)
     vids = os.listdir(root_dir+"/"+date_dir+"/"+hour_dir)
     for vid in vids:
         if vid.endswith("mp4"):
