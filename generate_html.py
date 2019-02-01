@@ -16,9 +16,11 @@ def addTitle(f, main, dt="", hr="", personDir = None):
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
         if personDir == "Persons":
-            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) </a>'%(main, dt, hr)
-        else:
+            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr,personDir)
+        if personDir==None:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
+        else:
+            link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr, personDir)
 
     if personDir!=None:
         title = '%s (%s)'%(title, personDir)
@@ -196,8 +198,12 @@ date = now.strftime("%Y-%m-%d")
 lasthour = now - datetime.timedelta(hours=1)
 lastdate = lasthour.strftime("%Y-%m-%d")
 
+lasthour2 = now - datetime.timedelta(hours=2)
+lastdate2 = lasthour2.strftime("%Y-%m-%d")
+
 cur_hour = '%02dhour'%(now.hour)
 prev_hour = '%02dhour'%(lasthour.hour)
+prev_hour2 = '%02dhour'%(lasthour2.hour)
 
 photo_root_dirs = ["/mnt/hdd/GatePhotos", "/mnt/hdd/StairsPhotos"]
 video_root_dirs = ["/mnt/hdd/GateVideos", "/mnt/hdd/StairsVideos"]
@@ -206,12 +212,13 @@ for root_dir in photo_root_dirs:
     generate_hours_html_on_date(root_dir,date)
     generate_img_html_on_date_hour(root_dir,date,cur_hour)
     generate_img_html_on_date_hour(root_dir,lastdate,prev_hour)
+    generate_img_html_on_date_hour(root_dir,lastdate2,prev_hour2)
     
 for root_dir in video_root_dirs:
     generate_hours_html_on_date(root_dir,date)
     generate_vid_html_on_date_hour(root_dir,date,cur_hour)
     generate_vid_html_on_date_hour(root_dir,lastdate,prev_hour)
-
+    
 time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 total, used, free = shutil.disk_usage("/mnt/hdd")
 storage = '%d%% Full (%d GB Available)'%((used/total)*100,free// (2**30))
