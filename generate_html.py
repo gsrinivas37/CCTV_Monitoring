@@ -21,7 +21,7 @@ def addTitle(f, main, dt="", hr="", personDir = None):
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
 
     if personDir!=None:
-        title = '%s (%s)'%(personDir)
+        title = '%s (%s)'%(title, personDir)
     f.write('<title>%s</title>\n'%(title))
     f.write('<head><h1><center>%s</center></h1></head>\n'%(link))
     
