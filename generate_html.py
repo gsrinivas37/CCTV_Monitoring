@@ -4,6 +4,9 @@ import os
 import datetime
 import shutil
 
+photo_root_dirs = ["/mnt/hdd/GatePhotos", "/mnt/hdd/StairsPhotos"]
+video_root_dirs = ["/mnt/hdd/GateVideos", "/mnt/hdd/StairsVideos"]
+
 def addTitle(f, main, dt="", hr="", personDir = None):
     title = main
     link = '<a href=\"../\">%s</a>'%(main)
@@ -148,7 +151,8 @@ def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
 def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     if not os.path.exists(os.path.join(root_dir,date_dir,hour_dir)):
         return
-        
+    
+    print('Generating %s HTML on %s at %s'%(os.path.split(root_dir)[1],date_dir,hour_dir))
     hour_html = root_dir+"/"+date_dir+"/"+hour_dir+"/index.html"
     f = open(hour_html, "w")
     f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
@@ -189,6 +193,9 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
 def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
     if not os.path.exists(os.path.join(root_dir,date_dir,hour_dir)):
         return
+
+    print('Generating %s HTML on %s at %s'%(os.path.split(root_dir)[1],date_dir,hour_dir))
+    
     hour_html = root_dir+"/"+date_dir+"/"+hour_dir+"/index.html"
     f = open(hour_html, "w")
     f.write('<html>\n')
@@ -202,33 +209,44 @@ def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
             f.write('<h2><a href=\"./%s\">%s</a> (%s)</h2>'%(vid,vid,GetHumanReadable(size)))
     f.write('</body></html>')
     f.close()
-	
-now = datetime.datetime.now()
-date = now.strftime("%Y-%m-%d")
 
-lasthour = now - datetime.timedelta(hours=1)
-lastdate = lasthour.strftime("%Y-%m-%d")
+def generate_at_time(now,generate_hours_html=False):
+    cur_hour = '%02dhour'%(now.hour)
+    date = now.strftime("%Y-%m-%d")
 
-lasthour2 = now - datetime.timedelta(hours=2)
-lastdate2 = lasthour2.strftime("%Y-%m-%d")
+    for root_dir in photo_root_dirs:
+        if generate_hours_html == True:
+            generate_hours_html_on_date(root_dir,date)
+        generate_img_html_on_date_hour(root_dir,date,cur_hour)
+    for root_dir in video_root_dirs:
+        if generate_hours_html == True:
+            generate_hours_html_on_date(root_dir,date)
+        generate_vid_html_on_date_hour(root_dir,date,cur_hour)
 
-cur_hour = '%02dhour'%(now.hour)
-prev_hour = '%02dhour'%(lasthour.hour)
-prev_hour2 = '%02dhour'%(lasthour2.hour)
+def generate_for_hours(hrs=2):
+    for i in range(hours):
+        time = datetime.datetime.now() - datetime.timedelta(hours=hrs)
+        generate_at_time(now, generate_hours_html=(i==0))
 
-photo_root_dirs = ["/mnt/hdd/GatePhotos", "/mnt/hdd/StairsPhotos"]
-video_root_dirs = ["/mnt/hdd/GateVideos", "/mnt/hdd/StairsVideos"]
+def generate_all():
+    for root_dir in photo_root_dirs:
+        date_dirs = get_sub_dirs(root_dir):
+        for dt_dir in date_dirs:
+            generate_hours_html_on_date(root_dir,dt_dir)
+            hour_dirs = get_sub_dirs(os.path.join(root_dir,dt_dir)):
+            for hr_dir in hour_dirs:
+                generate_img_html_on_date_hour(root_dir,dt_dir,hr_dir)
 
-for root_dir in photo_root_dirs:
-    generate_hours_html_on_date(root_dir,date)
-    generate_img_html_on_date_hour(root_dir,date,cur_hour)
-    generate_img_html_on_date_hour(root_dir,lastdate,prev_hour)
-    generate_img_html_on_date_hour(root_dir,lastdate2,prev_hour2)
-    
-for root_dir in video_root_dirs:
-    generate_hours_html_on_date(root_dir,date)
-    generate_vid_html_on_date_hour(root_dir,date,cur_hour)
-    generate_vid_html_on_date_hour(root_dir,lastdate,prev_hour)
+    for root_dir in video_root_dirs:
+        date_dirs = get_sub_dirs(root_dir):
+        for dt_dir in date_dirs:
+            generate_hours_html_on_date(root_dir,dt_dir)
+            hour_dirs = get_sub_dirs(os.path.join(root_dir,dt_dir)):
+            for hr_dir in hour_dirs:
+                generate_vid_html_on_date_hour(root_dir,dt_dir,hr_dir)
+
+generate_for_hours()
+#generate_all()
 
 time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 total, used, free = shutil.disk_usage("/mnt/hdd")
