@@ -16,7 +16,7 @@ def addTitle(f, main, dt="", hr="", personDir = None):
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
         if personDir == "Persons":
-            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
+            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) </a>'%(main, dt, hr)
         else:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
 
@@ -141,7 +141,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
     f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
     person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
     per_dir = "Other" if os.path.exists(person_dir) else "All"
-    addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir, per_dir)
+    addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir, personDir = per_dir)
     f.write('<body>\n')
 
     generate_links(root_dir, date_dir,hour_dir,f)
@@ -165,7 +165,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
         hour_html = os.path.join(root_dir,date_dir,hour_dir,"persons","index.html")
         f = open(hour_html, "w")
         f.write('<html>\n<style>\nimg{border: 1px solid #ddd;border-radius: 4px; padding: 5px; width: 150px;} \nimg:hover { box-shadow: 0 0 2px 1px rgba(0,140, 186, 0.5);} \n</style>\n')
-        addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir,"Persons")
+        addTitle(f, os.path.split(root_dir)[1],date_dir, hour_dir, personDir = "Persons")
         f.write('<body>\n')
         generate_links(root_dir, date_dir,hour_dir,f, isPersonDir = True)
         for img_file in person_list:
