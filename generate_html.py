@@ -89,11 +89,11 @@ def generate_links(root_dir, date_dir,hour_dir, f):
     if hour_dir != "23hour":
         next_hour = '%02dhour'%(int(hour_dir[0:2])+1)
         person_dir = os.path.join(root_dir,date_dir,next_hour,"persons")
-    if os.path.exists(person_dir):
-        next_link = "../"+next_hour+"/persons"
-        person_dir = os.path.join(root_dir,date_dir,next_hour)
         if os.path.exists(person_dir):
-            next_link = "../"+next_hour
+            next_link = "../"+next_hour+"/persons"
+            other_dir = os.path.join(root_dir,date_dir,next_hour)
+            if os.path.exists(other_dir):
+                next_link = "../"+next_hour
 
     video_link = "../../../"+os.path.split(root_dir)[1].replace("Photos","Videos")+"/"+date_dir+"/"+hour_dir
 
