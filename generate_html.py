@@ -16,7 +16,7 @@ def addTitle(f, main, dt="", hr="", personDir = None):
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
         if personDir == "Persons":
-            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr,personDir)
+            link = '<a href=\"../../../../../\">%s</a>&nbsp<a href=\"../../../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr,personDir)
         if personDir==None:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
         else:
@@ -218,7 +218,7 @@ for root_dir in video_root_dirs:
     generate_hours_html_on_date(root_dir,date)
     generate_vid_html_on_date_hour(root_dir,date,cur_hour)
     generate_vid_html_on_date_hour(root_dir,lastdate,prev_hour)
-    
+
 time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 total, used, free = shutil.disk_usage("/mnt/hdd")
 storage = '%d%% Full (%d GB Available)'%((used/total)*100,free// (2**30))
