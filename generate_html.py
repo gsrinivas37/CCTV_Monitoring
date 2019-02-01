@@ -117,9 +117,14 @@ def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
 
     str1 = "Photos" if isPhotoDir else "Videos"
     str2 = "Videos" if isPhotoDir else "Photos"
-    video_link = "../../../"+os.path.split(root_dir)[1].replace(str1,str2)+"/"+date_dir+"/"+hour_dir
+    other_link = "../../../"+os.path.split(root_dir)[1].replace(str1,str2)+"/"+date_dir+"/"+hour_dir
     if isPersonDir == True:
-        video_link = "../"+video_link
+        other_link = "../"+other_link
+
+    if str1 == "Videos":
+        other_person_dir = os.path.join(root_dir.replace(str1,str2),date_dir,hour_dir,"persons")
+        if os.path.exists(other_person_dir):
+            other_link = other_link+"/persons"
 
     str3 = "Gate" if isGateDir else "Stairs"
     str4 = "Stairs" if isGateDir else "Gate"
@@ -137,7 +142,7 @@ def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
     if next_link !=None:
         f.write('<div style=\"float: right\"><a href=\"%s\"> Next</a> (%s)</div>'%(next_link, next_hour))
 
-    f.write('<div style=\"margin: auto; width: 150px;\"><a href=\"%s\">%s</a>&emsp;&emsp;<a href=\"%s\">%s</a></div>'%(video_link,str2,othercam_link,str4))
+    f.write('<div style=\"margin: auto; width: 150px;\"><a href=\"%s\">%s</a>&emsp;&emsp;<a href=\"%s\">%s</a></div>'%(other_link,str2,othercam_link,str4))
     f.write('</h2>')
 
 def generate_img_html_on_date_hour(root_dir, date_dir,hour_dir):
