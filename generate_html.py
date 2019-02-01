@@ -16,7 +16,9 @@ def addTitle(f, main, dt="", hr="", personDir = None):
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
         if personDir == "Persons":
-            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) (%s)</a>'%(main, dt, hr,personDir)
+            link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../../\">(%s)</a> (%s) (%s)&nbsp<a href=\"../\">(O)</a></a>'%(main, dt, hr,personDir)
+        elif personDir == "Other":
+            link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) (%s)</a>&nbsp<a href="./persons">(P)</a>'%(main, dt, hr, personDir)
         elif personDir==None:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
         else:
@@ -122,6 +124,10 @@ def generate_links(root_dir, date_dir,hour_dir, f, isPersonDir = False):
     str3 = "Gate" if isGateDir else "Stairs"
     str4 = "Stairs" if isGateDir else "Gate"
     othercam_link = "../../../"+os.path.split(root_dir)[1].replace(str3,str4)+"/"+date_dir+"/"+hour_dir
+    othercam_person_dir = os.path.join(root_dir.replace(str3,str4),date_dir,hour_dir,"persons")
+    if os.path.exists(othercam_person_dir):
+        othercam_link = othercam_link+"./persons"
+
     if isPersonDir == True:
         othercam_link = "../"+othercam_link
 
