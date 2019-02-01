@@ -91,6 +91,7 @@ def generate_links(root_dir, date_dir,hour_dir, f):
         person_dir = os.path.join(root_dir,date_dir,next_hour,"persons")
         if os.path.exists(person_dir):
             next_link = "../"+next_hour+"/persons"
+        else:
             other_dir = os.path.join(root_dir,date_dir,next_hour)
             if os.path.exists(other_dir):
                 next_link = "../"+next_hour
