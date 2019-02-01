@@ -229,7 +229,7 @@ def generate_for_hours(hrs=2):
     generate_at_time(now, generate_hours_html=True)
     hr = 1
     while(hr<=hrs):
-        now = now - datetime.timedelta(hours=hr)
+        now = datetime.datetime.now() - datetime.timedelta(hours=hr)
         generate_at_time(now)
         hr = hr + 1
 
