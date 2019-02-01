@@ -9,13 +9,13 @@ def addTitle(f, main, dt="", hr="", personDir = None):
     link = '<a href=\"../\">%s</a>'%(main)
     if dt!="":
         title = '%s (%s)'%(title,dt)
-        if personDir = "Persons":
+        if personDir == "Persons":
             link = '<a href=\"../../../\">%s</a> (%s) </a>'%(main, dt)
         else:
             link = '<a href=\"../../\">%s</a> (%s) </a>'%(main, dt)
     if dt!="" and hr!="":
         title = '%s (%s)'%(title,hr)
-        if personDir = "Persons":
+        if personDir == "Persons":
             link = '<a href=\"../../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
         else:
             link = '<a href=\"../../../\">%s</a>&nbsp<a href=\"../\">(%s)</a> (%s) </a>'%(main, dt, hr)
