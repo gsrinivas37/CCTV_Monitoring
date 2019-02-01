@@ -211,7 +211,6 @@ def generate_vid_html_on_date_hour(root_dir, date_dir,hour_dir):
     f.close()
 
 def generate_at_time(now,generate_hours_html=False):
-    print("Generate at time"+str(now))
     cur_hour = '%02dhour'%(now.hour)
     date = now.strftime("%Y-%m-%d")
 
@@ -293,5 +292,4 @@ for log in logs:
 
 html = (html%(row_str))
 out.write(html)
-
-print("Generate html ran at:"+time)
+print("\n")
