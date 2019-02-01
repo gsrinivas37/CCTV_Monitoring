@@ -226,7 +226,7 @@ def generate_at_time(now,generate_hours_html=False):
 def generate_for_hours(hrs=2):
     for i in range(hrs):
         time = datetime.datetime.now() - datetime.timedelta(hours=hrs)
-        generate_at_time(now, generate_hours_html=(i==0))
+        generate_at_time(time, generate_hours_html=(i==0))
 
 def generate_all():
     for root_dir in photo_root_dirs:
