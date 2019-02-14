@@ -248,7 +248,9 @@ total, used, free = shutil.disk_usage("/mnt/hdd")
 storage = '%d%% Full (%d GB Available)'%((used/total)*100,free// (2**30))
 
 row_str = ""
-for dt in get_sub_dirs("/mnt/hdd/GatePhotos")[::-1]:
+dt_dirs = get_sub_dirs("/mnt/hdd/GatePhotos")
+dt_dirs.sort(reverse=True)
+for dt in dt_dirs:
     row_str+= "<tr>\n"
     row_str+= ("<td><h2><a href='./GatePhotos/%s'> %s </a></h2></td>\n"%(dt,dt))
     if os.path.exists("/mnt/hdd/StairsPhotos/"+dt): 
