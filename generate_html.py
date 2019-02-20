@@ -60,6 +60,8 @@ def get_sub_dirs(root_dir):
     return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
 
 def generate_hours_html_on_date(root_dir, date_dir):
+    if not os.path.exists(root_dir+"/"+date_dir):
+        return 
     date_html = root_dir+"/"+date_dir+"/index.html"    
     f = open(date_html, "w")
     f.write('<html>\n')
