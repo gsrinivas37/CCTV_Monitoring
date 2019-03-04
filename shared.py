@@ -10,7 +10,7 @@ def get_files(parent_dir, extension):
     
 def get_sub_dirs(root_dir):
     return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
-    
+
 def ensure_dir_exists(directory):
 	if not os.path.exists(directory):
 		os.mkdir(directory)
@@ -22,7 +22,6 @@ def replace_with_low_res(directory, files):
             cv2_img = cv2.imread(os.path.join(directory,img))
             if str(cv2_img.shape) == "(360, 640, 3)":
                 continue
-            print(img)
             cv2_img = cv2.resize(cv2_img, (640, 360))
             cv2.imwrite(os.path.join(os.path.join(directory,"temp.jpg")), cv2_img)
             os.remove(os.path.join(directory,img))
@@ -41,3 +40,14 @@ def save_space(date_dir):
             non_person_imgs = [x for x in all_images if x not in person_imgs]
 
         replace_with_low_res(os.path.join(date_dir,hour_dir),non_person_imgs)
+
+def save_space_video(date_dir):
+    print("Running save_space_video on date:"+date_dir)
+    for hour_dir in get_sub_dirs(date_dir):
+        person_dir = os.path.join(date_dir,hour_dir,"persons")
+        if not os.path.exists(person_dir):
+            print("Person dir doesn't exist on "+hour_dir)
+            gate_video = os.path.join(date_dir.replace("Photos","Videos"),hour_dir)
+            print("Remove directory:"+gate_video)
+            if os.path.exists(gate_video):
+                shutil.rmtree(gate_video)
