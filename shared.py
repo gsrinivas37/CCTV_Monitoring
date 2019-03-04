@@ -18,12 +18,15 @@ def ensure_dir_exists(directory):
 def replace_with_low_res(directory, files):
     print("Running replace_with_low_res on :"+directory)
     for img in files:
-        cv2_img = cv2.imread(os.path.join(directory,img))
         print(img)
-        cv2_img = cv2.resize(cv2_img, (640, 360))
-        cv2.imwrite(os.path.join(os.path.join(directory,"temp.jpg")), cv2_img)
-        os.remove(os.path.join(directory,img))
-        os.rename(os.path.join(os.path.join(directory,"temp.jpg")), os.path.join(directory,img))
+        try:
+            cv2_img = cv2.imread(os.path.join(directory,img))
+            cv2_img = cv2.resize(cv2_img, (640, 360))
+            cv2.imwrite(os.path.join(os.path.join(directory,"temp.jpg")), cv2_img)
+            os.remove(os.path.join(directory,img))
+            os.rename(os.path.join(os.path.join(directory,"temp.jpg")), os.path.join(directory,img))
+        except:
+            print("error reading:"+img)
 
 def save_space(date_dir):
     print("Running save_space on date:"+date_dir)
