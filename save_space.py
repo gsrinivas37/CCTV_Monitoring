@@ -1,6 +1,6 @@
 from shared import *
 
-past_time = datetime.datetime.now() - datetime.timedelta(days=4)
+past_time = datetime.datetime.now() - datetime.timedelta(days=6)
 past_date = past_time.strftime("%Y-%m-%d")
 
 for photo_root in photo_root_dirs:

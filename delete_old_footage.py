@@ -5,9 +5,9 @@ from shared import get_sub_dirs
 
 expiry_date_dictionary = {
   "/mnt/hdd/GatePhotos": 60,
-  "/mnt/hdd/StairsPhotos": 45,
-  "/mnt/hdd/GateVideos": 25,
-  "/mnt/hdd/StairsVideos": 20,
+  "/mnt/hdd/StairsPhotos": 60,
+  "/mnt/hdd/GateVideos": 45,
+  "/mnt/hdd/StairsVideos": 30,
   "/mnt/hdd/tmp/GateCamera": 0,
   "/mnt/hdd/tmp/StairsCamera": 0
 }
