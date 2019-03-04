@@ -21,6 +21,8 @@ def replace_with_low_res(directory, files):
         print(img)
         try:
             cv2_img = cv2.imread(os.path.join(directory,img))
+            if str(cv2_img.shape) == "(360, 640, 3)":
+                continue
             cv2_img = cv2.resize(cv2_img, (640, 360))
             cv2.imwrite(os.path.join(os.path.join(directory,"temp.jpg")), cv2_img)
             os.remove(os.path.join(directory,img))
