@@ -72,9 +72,10 @@ print("No. of videos to process: "+str(len(all_videos)))
 
 for vid in all_videos:
     if person_exists_in_video(vid)==True:
-        print("Peron exists in "+ vid)
+        print("Person exists in "+ vid)
     else:
-        f = open(vid+".noperson")
+        print("No person exists in "+ vid)
+        f = open(vid+".noperson","w")
         f.write("No Person")
         f.close()
 

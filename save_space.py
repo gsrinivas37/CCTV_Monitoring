@@ -1,6 +1,6 @@
 from shared import *
 
-root_dir = '/mnt/hdd/GatePhotos'
+root_dir = '/mnt/hdd/StairsPhotos'
 
 today = datetime.datetime.now().strftime("%Y-%m-%d")
 print(today)
