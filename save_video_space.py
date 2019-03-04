@@ -24,13 +24,24 @@ def check_person_exists_in_video(root_dir, date, hour, video):
 
 def run_on_date(date):
     print("Running on date:"+date)
-    for hr_dir in get_sub_dirs(os.path.join(gate_video_dir,date)):
-        for video in get_files(os.path.join(gate_video_dir,date,hr_dir),"mp4"):
-            print("Person exists in video "+video+" :"+ str(check_person_exists_in_video(gate_video_dir, date, hr_dir, video)))
+    if os.path.exists(os.path.join(gate_video_dir,date)):
+        for hr_dir in get_sub_dirs(os.path.join(gate_video_dir,date)):
+            for video in get_files(os.path.join(gate_video_dir,date,hr_dir),"mp4"):
+                exists = check_person_exists_in_video(gate_video_dir, date, hr_dir, video)
+                if exists==False:
+                    os.remove(os.path.join(gate_video_dir,date,hr_dir,video))
 
-    for hr_dir in get_sub_dirs(os.path.join(stairs_video_dir,date)):
-        for video in get_files(os.path.join(stairs_video_dir,date,hr_dir),"mp4"):
-            print("Person exists in video "+video+" :"+ str(check_person_exists_in_video(stairs_video_dir, date, hr_dir, video)))
+    if os.path.exists(os.path.join(stairs_video_dir, date)):
+        for hr_dir in get_sub_dirs(os.path.join(stairs_video_dir,date)):
+            for video in get_files(os.path.join(stairs_video_dir,date,hr_dir),"mp4"):
+                exists = check_person_exists_in_video(stairs_video_dir, date, hr_dir, video)
+                if exists==False:
+                    os.remove(os.path.join(stairs_video_dir,date,hr_dir,video))
 
+today = datetime.datetime.now().date()
 
-run_on_date("2019-03-02")
+for dt_dir in get_sub_dirs(gate_video_dir):
+    dt = datetime.datetime.strptime(dt_dir, "%Y-%m-%d").date()
+    elapsed_days = (today - dt).days
+    if elapsed_days > 5:
+        run_on_date(dt_dir)
