@@ -49,9 +49,7 @@ def save_space_video(date_dir):
     for hour_dir in get_sub_dirs(date_dir):
         person_dir = os.path.join(date_dir,hour_dir,"persons")
         if not os.path.exists(person_dir):
-            print("Person dir doesn't exist on "+hour_dir)
             gate_video = os.path.join(date_dir.replace("Photos","Videos"),hour_dir)
-            print("Remove directory:"+gate_video)
             if os.path.exists(gate_video):
                 shutil.rmtree(gate_video)
 
