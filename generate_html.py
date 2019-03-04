@@ -2,36 +2,6 @@
 import os.path
 from shared import *
 
-def generate_hours_html_on_date(root_dir, date_dir):
-    if not os.path.exists(root_dir+"/"+date_dir):
-        return 
-    date_html = root_dir+"/"+date_dir+"/index.html"    
-    f = open(date_html, "w")
-    f.write('<html>\n')
-    addTitle(f, os.path.split(root_dir)[1],date_dir)
-    f.write('<body>\n')
-    hours = get_sub_dirs(root_dir+"/"+date_dir)
-    for hour_dir in hours[::-1]:
-        person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
-        if os.path.exists(person_dir):
-            person_list = get_files(person_dir,"jpg")
-            images_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
-            f.write('<h2>%s&emsp;<A href=\"./%s/persons\">Person images(%d)</A>&emsp;<A href=\"./%s\"> Other Images (%d)</A></h2>\n'%(hour_dir,hour_dir,len(person_list),hour_dir,len(images_list)-len(person_list)))
-        else:
-            images_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"jpg")
-            currenthour = '%02dhour'%(datetime.datetime.now().hour)
-            if len(images_list) == 0:
-                video_list = get_files(os.path.join(root_dir,date_dir,hour_dir),"mp4")
-                f.write('<h2><A href=\"./%s\">%s</A> (%d Videos)</h2>'%(hour_dir,hour_dir,len(video_list)))
-            else:
-                if hour_dir==currenthour:
-                    f.write('<h2><A href=\"./%s\">%s</A> (%d Images. Person detection will happen at the end of hour)</h2>\n'%(hour_dir,hour_dir,len(images_list)))
-                else:
-                    f.write('<h2><A href=\"./%s\">%s</A> (%d Images with no persons)</h2>\n'%(hour_dir,hour_dir,len(images_list)))
-
-    f.write('</body>\n</html>')
-    f.close()
-
 def generate_at_time(time,generate_hours_html=False):
     cur_hour = '%02dhour'%(time.hour)
     date = time.strftime("%Y-%m-%d")
