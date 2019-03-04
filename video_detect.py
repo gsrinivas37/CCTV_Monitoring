@@ -33,19 +33,19 @@ def person_exists_in_video(video):
         ret, frame = cam.read()
 
         if ret:
-            if currentframe%10 != 0:
+            if currentframe % 20 != 0:
                 continue
 
             # if video is still left continue creating images
             print('Process frame No.' + str(currentframe))
 
-            # boxes, scores, classes, num = odapi.processFrame(frame)
-            #
-            # for i in range(len(boxes)):
-            #     # Class 1 represents human
-            #     if classes[i] == 1 and scores[i] > threshold:
-            #         cam.release()
-            #         return True
+            boxes, scores, classes, num = odapi.processFrame(frame)
+
+            for i in range(len(boxes)):
+                # Class 1 represents human
+                if classes[i] == 1 and scores[i] > threshold:
+                    cam.release()
+                    return True
 
             # increasing counter so that it will
             # show how many frames are created
@@ -67,8 +67,8 @@ odapi = DetectorAPI(path_to_ckpt=model_path)
 threshold = 0.5
 
 hour = '%02dhour'%(lasthour.hour)
-
 all_videos = get_videos(date,hour)
+print("No. of videos to process: "+len(all_videos))
 
 for vid in all_videos:
     if person_exists_in_video(vid)==True:
