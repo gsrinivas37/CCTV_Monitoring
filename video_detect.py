@@ -3,7 +3,6 @@
 # Tensorflow Object Detection Detector
 
 import time
-import datetime
 from shared import *
 from detector import DetectorAPI
 
