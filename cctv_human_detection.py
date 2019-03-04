@@ -7,7 +7,7 @@ import time
 import os
 import os.path
 import datetime
-from shared import get_files
+from shared import *
 from detector import DetectorAPI
 
 def runOnDirectory(root_dir,date,hour):
@@ -58,10 +58,11 @@ odapi = DetectorAPI(path_to_ckpt=model_path)
 threshold = 0.5
     
 hour = '%02dhour'%(lasthour.hour)
-        
-total = runOnDirectory("/mnt/hdd/GatePhotos",date,hour)
-total = total + runOnDirectory("/mnt/hdd/StairsPhotos",date,hour)
-    
+
+total = 0
+for photo_root in photo_root_dirs:
+    total = total + runOnDirectory(photo_root,date,hour)
+
 total_time = time.time() - start_time
 str = ("Person detect ran at %s on %d images and took %d minutes and %d seconds\n")%(now.strftime("%Y-%m-%d %H:%M"),total,total_time/60, total_time%60)
 print(str)
