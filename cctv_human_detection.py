@@ -63,9 +63,5 @@ total = runOnDirectory("/mnt/hdd/GatePhotos",date,hour)
 total = total + runOnDirectory("/mnt/hdd/StairsPhotos",date,hour)
     
 total_time = time.time() - start_time
-log_file = "/home/pi/www/logs/person_detect/log.txt"
 str = ("Person detect ran at %s on %d images and took %d minutes and %d seconds\n")%(now.strftime("%Y-%m-%d %H:%M"),total,total_time/60, total_time%60)
-f = open(log_file, "a")
-f.write(str)
 print(str)
-f.close()

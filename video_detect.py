@@ -20,7 +20,7 @@ def get_videos(date,hour):
     return videos
 
 def person_exists_in_video(video):
-    print("Running on.. " + video)
+    print("Video detect on.. " + video)
 
     # Read the video from specified path
     cam = cv2.VideoCapture(video)
@@ -33,11 +33,11 @@ def person_exists_in_video(video):
         ret, frame = cam.read()
 
         if ret:
-            if currentframe % 20 != 0:
+            if currentframe % 50 != 0:
                 continue
 
             # if video is still left continue creating images
-            print('Process frame No.' + str(currentframe))
+            # print('Process frame No.' + str(currentframe))
 
             boxes, scores, classes, num = odapi.processFrame(frame)
 
@@ -68,9 +68,16 @@ threshold = 0.5
 
 hour = '%02dhour'%(lasthour.hour)
 all_videos = get_videos(date,hour)
-print("No. of videos to process: "+len(all_videos))
+print("No. of videos to process: "+str(len(all_videos)))
 
 for vid in all_videos:
     if person_exists_in_video(vid)==True:
         print("Peron exists in "+ vid)
+    else:
+        f = open(vid+".noperson")
+        f.write("No Person")
+        f.close()
 
+total_time = time.time() - start_time
+str = ("Video detect ran at %s on %d videos and took %d minutes and %d seconds\n")%(now.strftime("%Y-%m-%d %H:%M"),len(all_videos),total_time/60, total_time%60)
+print(str)
