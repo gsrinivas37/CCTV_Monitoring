@@ -1,6 +1,7 @@
 import os
 import datetime
 import shutil
+from shared import get_sub_dirs
 
 expiry_date_dictionary = {
   "/mnt/hdd/GatePhotos": 60,
@@ -10,9 +11,6 @@ expiry_date_dictionary = {
   "/mnt/hdd/tmp/GateCamera": 0,
   "/mnt/hdd/tmp/StairsCamera": 0
 }
-
-def get_sub_dirs(root_dir):
-    return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
 
 today = datetime.datetime.now().date()
 for root_dir in expiry_date_dictionary:

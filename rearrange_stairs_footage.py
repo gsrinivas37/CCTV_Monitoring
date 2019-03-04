@@ -5,18 +5,11 @@ import datetime
 import glob
 import shutil
 import cv2
+from shared import *
 
 stairs_root_dir = "/mnt/hdd/tmp/StairsCamera/"
 stairs_target_imgs_dir = "/mnt/hdd/StairsPhotos/"
 stairs_target_vids_dir = "/mnt/hdd/StairsVideos/"
-
-
-def get_sub_dirs(root_dir):
-    return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
-    
-def ensure_dir_exists(directory):
-	if not os.path.exists(directory):
-		os.mkdir(directory)
 
 def get_hour(img):
 	return img.split('/')[8]+"hour"

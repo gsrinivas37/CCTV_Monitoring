@@ -3,6 +3,7 @@ import os.path
 import os
 import datetime
 import shutil
+from shared import *
 
 photo_root_dirs = ["/mnt/hdd/GatePhotos", "/mnt/hdd/StairsPhotos"]
 video_root_dirs = ["/mnt/hdd/GateVideos", "/mnt/hdd/StairsVideos"]
@@ -40,9 +41,6 @@ def GetHumanReadable(size,precision=2):
         size = size/1024.0 #apply the division
     return "%.*f %s"%(precision,size,suffixes[suffixIndex])
 
-def get_files(parent_dir, extension):
-    return [x for x in os.listdir(parent_dir) if x.endswith(extension)]
-
 def generate_main_html(root_dir):
     dates_html_file = root_dir+"/index.html"
     f = open(dates_html_file, "w")
@@ -55,9 +53,6 @@ def generate_main_html(root_dir):
 
     f.write('</body>\n</html>')
     f.close()
-
-def get_sub_dirs(root_dir):
-    return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
 
 def generate_hours_html_on_date(root_dir, date_dir):
     if not os.path.exists(root_dir+"/"+date_dir):
