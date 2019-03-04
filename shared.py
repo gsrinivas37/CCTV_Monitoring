@@ -19,7 +19,6 @@ def ensure_dir_exists(directory):
 		os.mkdir(directory)
 
 def replace_with_low_res(directory, files):
-    print("Running replace_with_low_res on :"+directory)
     for img in files:
         try:
             cv2_img = cv2.imread(os.path.join(directory,img))
