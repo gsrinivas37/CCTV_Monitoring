@@ -210,7 +210,8 @@ def generate_hours_html_on_date(root_dir, date_dir):
     addTitle(f, os.path.split(root_dir)[1],date_dir)
     f.write('<body>\n')
     hours = get_sub_dirs(root_dir+"/"+date_dir)
-    for hour_dir in hours[::-1]:
+    hours.sort(reverse=True)
+    for hour_dir in hours:
         person_dir = os.path.join(root_dir,date_dir,hour_dir,"persons")
         if os.path.exists(person_dir):
             person_list = get_files(person_dir,"jpg")
