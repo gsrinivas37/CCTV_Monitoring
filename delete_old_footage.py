@@ -21,6 +21,9 @@ for root_dir in expiry_date_dictionary:
         dt = datetime.datetime.strptime(dt_dir, "%Y-%m-%d").date()
         elapsed_days = (today-dt).days
         if elapsed_days > expiry_date:
-            shutil.rmtree(root_dir+"/"+dt_dir)
+            try:
+		shutil.rmtree(root_dir+"/"+dt_dir)
+	    except:
+		print("Error deleting directory:"+root_dir+"/"+dt_dir)
 
 
