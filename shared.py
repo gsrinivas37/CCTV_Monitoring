@@ -335,7 +335,7 @@ def generate_front_page():
     row = open("/home/pi/CCTV_Monitoring/row.html", "r")
     row_temp = (row.read())
     row_str = ""
-    logs = get_files("/home/pi/www/logs/gate", "txt")
+    logs = get_files("/home/pi/www/logs/process", "txt")
     logs.sort(reverse=True)
     for log in logs:
         dt = log[4:-4]
