@@ -1,5 +1,8 @@
 from shared import *
 
+if not check_hdd():
+    exit(0)
+
 past_time = datetime.datetime.now() - datetime.timedelta(days=6)
 past_date = past_time.strftime("%Y-%m-%d")
 

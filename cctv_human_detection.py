@@ -48,6 +48,9 @@ def runOnDirectory(root_dir,date,hour):
         #cv2.imwrite("/home/pi/face/out/"+x, img)
     return len(images)
 
+if not check_hdd():
+    exit(0)
+
 start_time = time.time()
 now = datetime.datetime.now()
 lasthour = now-datetime.timedelta(hours=1)
