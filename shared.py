@@ -31,6 +31,18 @@ def replace_with_low_res(directory, files):
         except:
             print("error reading:"+img)
 
+def log_message(message):
+    print(message+"\n")
+
+def check_hdd():
+    try:
+        os.listdir("/mnt/hdd")
+        log_message("Hard disk is accessible")
+        return True
+    except Exception as error:
+        log_message("Hard disk is not accessible: "+ str(error))
+        return False
+
 def save_space_image(date_dir):
     print("Running save_space_image on date:"+date_dir)
     for hour_dir in get_sub_dirs(date_dir):
