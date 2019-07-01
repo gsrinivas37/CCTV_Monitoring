@@ -8,15 +8,19 @@ import cv2
 photo_root_dirs = ["/mnt/hdd/GatePhotos", "/mnt/hdd/StairsPhotos"]
 video_root_dirs = ["/mnt/hdd/GateVideos", "/mnt/hdd/StairsVideos"]
 
+
 def get_files(parent_dir, extension):
     return [x for x in os.listdir(parent_dir) if x.endswith(extension)]
-    
+
+
 def get_sub_dirs(root_dir):
     return [x for x in os.listdir(root_dir) if os.path.isdir(root_dir+"/"+x)]
+
 
 def ensure_dir_exists(directory):
 	if not os.path.exists(directory):
 		os.mkdir(directory)
+
 
 def replace_with_low_res(directory, files):
     for img in files:
@@ -29,10 +33,12 @@ def replace_with_low_res(directory, files):
             os.remove(os.path.join(directory,img))
             os.rename(os.path.join(os.path.join(directory,"temp.jpg")), os.path.join(directory,img))
         except:
-            print("error reading:"+img)
+            log_message("error reading:"+img)
+
 
 def log_message(message):
     print(message+"\n")
+
 
 def check_hdd():
     try:
@@ -44,7 +50,7 @@ def check_hdd():
         return False
 
 def save_space_image(date_dir):
-    print("Running save_space_image on date:"+date_dir)
+    log_message("Running save_space_image on date:"+date_dir)
     for hour_dir in get_sub_dirs(date_dir):
         all_images = get_files(os.path.join(date_dir, hour_dir), "jpg")
         non_person_imgs = all_images
@@ -56,7 +62,7 @@ def save_space_image(date_dir):
         replace_with_low_res(os.path.join(date_dir,hour_dir),non_person_imgs)
 
 def save_space_video(date_dir):
-    print("Running save_space_video on date:"+date_dir)
+    log_message("Running save_space_video on date:"+date_dir)
     for hour_dir in get_sub_dirs(date_dir):
         person_dir = os.path.join(date_dir,hour_dir,"persons")
         if not os.path.exists(person_dir):
@@ -65,7 +71,7 @@ def save_space_video(date_dir):
                 shutil.rmtree(gate_video)
 
 def save_video_space2(date_dir):
-    print("Running save_video_space2 on date:"+date_dir)
+    log_message("Running save_video_space2 on date:"+date_dir)
     for hr_dir in get_sub_dirs(date_dir):
         for video in get_files(os.path.join(date_dir,hr_dir),"mp4"):
             exists = check_person_exists_in_video(date_dir, hr_dir, video)
@@ -197,7 +203,7 @@ def generate_vid_html_on_date_hour(root_dir, date_dir, hour_dir):
     if not os.path.exists(os.path.join(root_dir, date_dir, hour_dir)):
         return
 
-    print('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
+    log_message('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
 
     hour_html = root_dir + "/" + date_dir + "/" + hour_dir + "/index.html"
     f = open(hour_html, "w")
@@ -249,7 +255,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir, hour_dir):
     if not os.path.exists(os.path.join(root_dir, date_dir, hour_dir)):
         return
 
-    print('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
+    log_message('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
     hour_html = root_dir + "/" + date_dir + "/" + hour_dir + "/index.html"
     f = open(hour_html, "w")
     f.write(
@@ -338,4 +344,4 @@ def generate_front_page():
 
     html = (html % (row_str))
     out.write(html)
-    print("\n")
+    log_message("\n")

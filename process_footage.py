@@ -80,6 +80,40 @@ def move_videos(source_dir, target_dir, date, camera):
                 log_message(str(ex))
                 continue
 
+
+def generate_at_time(time,generate_hours_html=False):
+    cur_hour = '%02dhour'%(time.hour)
+    date = time.strftime("%Y-%m-%d")
+    for root_dir in photo_root_dirs:
+        if generate_hours_html == True:
+            generate_hours_html_on_date(root_dir,date)
+        generate_img_html_on_date_hour(root_dir,date,cur_hour)
+    for root_dir in video_root_dirs:
+        if generate_hours_html == True:
+            generate_hours_html_on_date(root_dir,date)
+        generate_vid_html_on_date_hour(root_dir,date,cur_hour)
+
+
+def generate_for_hours(hrs=3):
+    for hr in range(hrs):
+        now = datetime.datetime.now() - datetime.timedelta(hours=hr)
+        generate_at_time(now, generate_hours_html= (hr==0))
+
+
+def generate_all():
+    for root_dir in photo_root_dirs:
+        for dt_dir in get_sub_dirs(root_dir):
+            generate_hours_html_on_date(root_dir,dt_dir)
+            for hr_dir in get_sub_dirs(os.path.join(root_dir,dt_dir)):
+                generate_img_html_on_date_hour(root_dir,dt_dir,hr_dir)
+
+    for root_dir in video_root_dirs:
+        for dt_dir in get_sub_dirs(root_dir):
+            generate_hours_html_on_date(root_dir,dt_dir)
+            for hr_dir in get_sub_dirs(os.path.join(root_dir,dt_dir)):
+                generate_vid_html_on_date_hour(root_dir,dt_dir,hr_dir)
+
+
 # Execution starts here...
 log_message("Running process_footage at: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
 
@@ -94,10 +128,13 @@ for date in gate_date_dirs:
     move_videos(source_dir, gate_target_vids_dir, date, "gate")
 
 stairs_date_dirs = get_sub_dirs(stairs_root_dir)
-log_message("Moving Stairs Footage in :"+ str(stairs_date_dirs))
+log_message("\nMoving Stairs Footage in :"+ str(stairs_date_dirs))
 for date in stairs_date_dirs:
     source_dir = stairs_root_dir + date
     move_images(source_dir, stairs_target_imgs_dir, date, "stairs")
     move_videos(source_dir, stairs_target_vids_dir, date, "stairs")
+
+generate_for_hours()
+generate_front_page()
 
 
