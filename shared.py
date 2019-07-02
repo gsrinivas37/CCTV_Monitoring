@@ -54,6 +54,8 @@ def check_hdd():
         return True
     except Exception as error:
         log_message("Hard disk is not accessible: "+ str(error))
+        log_message("Rebooting Raspberry PI now....")
+        os.system("sudo reboot")
         return False
 
 def save_space_image(date_dir):
