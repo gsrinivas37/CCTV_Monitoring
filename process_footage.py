@@ -110,14 +110,14 @@ if not check_hdd():
     exit(0)
 
 gate_date_dirs = get_sub_dirs(gate_root_dir)
-log_message("Moving Gate Footage in :"+ str(gate_date_dirs).rstrip())
+log_message("Moving Gate Footage in :"+ str(gate_date_dirs))
 for date in gate_date_dirs:
     source_dir = gate_root_dir + date
     move_images(source_dir, gate_target_imgs_dir, date, "gate")
     move_videos(source_dir, gate_target_vids_dir, date, "gate")
 
 stairs_date_dirs = get_sub_dirs(stairs_root_dir)
-log_message("\nMoving Stairs Footage in :"+ str(stairs_date_dirs).rstrip())
+log_message("\nMoving Stairs Footage in :"+ str(stairs_date_dirs))
 for date in stairs_date_dirs:
     source_dir = stairs_root_dir + date
     move_images(source_dir, stairs_target_imgs_dir, date, "stairs")

@@ -37,7 +37,7 @@ def replace_with_low_res(directory, files):
 
 
 def log_message(message):
-    print(message+"\n")
+    print(message.rstrip()+"\n")
 
 
 def check_hdd():
