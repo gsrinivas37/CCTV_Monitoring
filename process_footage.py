@@ -13,6 +13,7 @@ stairs_target_vids_dir = video_root_dirs[1]
 
 updated_dirs = set()
 
+
 def get_hour_dir(img,camera):
     if camera.lower()=="gate":
         return img.split('/')[6]
@@ -72,12 +73,12 @@ def move_videos(source_dir, target_dir, date, camera):
 
     print("No. of videos to be moved are :"+str(len(vids)))
     if len(vids)!=0:
-        ensure_dir_exists(target_dir + "/" + date)
+        ensure_dir_exists(os.path.join(target_dir, date))
         for vid in vids:
             hr = get_hour_dir(vid,camera)
-            ensure_dir_exists(target_dir + "/" + date + "/" + hr)
+            ensure_dir_exists(os.path.join(target_dir, date, hr))
             try:
-                shutil.move(vid, target_dir + "/" + date + "/" + hr + "/" + os.path.split(vid)[1])
+                shutil.move(vid, os.path.join(target_dir, date, hr, os.path.split(vid)[1]))
                 updated_dirs.add(target_dir+":"+date+":"+hr)
             except Exception as ex:
                 log_message("Error moving file:"+vid)
@@ -100,6 +101,7 @@ def update_html(updated_dirs):
             generate_img_html_on_date_hour(root_dir,date,hour)
         else:
             generate_vid_html_on_date_hour(root_dir,date,hour)
+
 
 # Execution starts here...
 log_message("Running process_footage at: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
