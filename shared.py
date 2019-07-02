@@ -40,6 +40,9 @@ def log_message(message):
     print(message.rstrip()+"\n")
 
 
+def addMarkerLine():
+    log_message("*"*180)
+
 def check_hdd():
     try:
         os.listdir("/mnt/hdd")

@@ -104,6 +104,7 @@ def update_html(updated_dirs):
 
 
 # Execution starts here...
+addMarkerLine()
 log_message("Running process_footage at: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
 
 if not check_hdd():

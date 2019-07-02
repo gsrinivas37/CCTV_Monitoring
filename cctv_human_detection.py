@@ -64,4 +64,5 @@ for photo_root in photo_root_dirs:
 
 total_time = time.time() - start_time
 str = ("Person detect ran at %s on %d images and took %d minutes and %d seconds\n")%(now.strftime("%Y-%m-%d %H:%M"),total,total_time/60, total_time%60)
-print(str)
+log_message(str)
+addMarkerLine()
