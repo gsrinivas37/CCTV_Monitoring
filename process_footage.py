@@ -38,7 +38,7 @@ def move_images(source_dir, target_dir, date, camera):
     for img in  glob.iglob(source_dir + '/**/*.jpg', recursive=True):
         imgs.append(img)
 
-    print("No. of images to be moved are :"+str(len(imgs)))
+    #print("No. of images to be moved are :"+str(len(imgs)))
     if len(imgs)!=0:
         ensure_dir_exists(target_dir + date)
         for img in imgs:
@@ -71,7 +71,7 @@ def move_videos(source_dir, target_dir, date, camera):
     for vid in  glob.iglob(source_dir + '/**/*.mp4', recursive=True):
         vids.append(vid)
 
-    print("No. of videos to be moved are :"+str(len(vids)))
+    #print("No. of videos to be moved are :"+str(len(vids)))
     if len(vids)!=0:
         ensure_dir_exists(os.path.join(target_dir, date))
         for vid in vids:
