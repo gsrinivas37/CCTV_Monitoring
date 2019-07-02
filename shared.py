@@ -204,7 +204,7 @@ def generate_vid_html_on_date_hour(root_dir, date_dir, hour_dir):
     if not os.path.exists(os.path.join(root_dir, date_dir, hour_dir)):
         return
 
-    log_message('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
+    #log_message('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
 
     hour_html = root_dir + "/" + date_dir + "/" + hour_dir + "/index.html"
     f = open(hour_html, "w")
@@ -257,7 +257,7 @@ def generate_img_html_on_date_hour(root_dir, date_dir, hour_dir):
     if not os.path.exists(os.path.join(root_dir, date_dir, hour_dir)):
         return
 
-    log_message('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
+    #log_message('Generating %s HTML on %s at %s' % (os.path.split(root_dir)[1], date_dir, hour_dir))
     hour_html = root_dir + "/" + date_dir + "/" + hour_dir + "/index.html"
     f = open(hour_html, "w")
     f.write(
