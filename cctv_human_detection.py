@@ -2,13 +2,11 @@
 # https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
 # Tensorflow Object Detection Detector
 
-import cv2
 import time
-import os
 import os.path
-import datetime
 from shared import *
 from detector import DetectorAPI
+
 
 def runOnDirectory(root_dir,date,hour):
     cur_dir = os.path.join(root_dir,date,hour)
@@ -17,8 +15,6 @@ def runOnDirectory(root_dir,date,hour):
     print("Running on.. "+cur_dir)
     images = get_files(cur_dir, "jpg")
     for x in images:
-        #print(x)
-        
         try:
             img = cv2.imread(cur_dir+"/"+x)
             img = cv2.resize(img, (1280, 720))
