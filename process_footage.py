@@ -41,7 +41,7 @@ def move_images(source_dir, target_dir, date, camera):
     if len(imgs)!=0:
         ensure_dir_exists(target_dir + date)
         for img in imgs:
-            hr = get_hour_dir(img,"gate")
+            hr = get_hour_dir(img,camera)
             ensure_dir_exists(target_dir + date + "/" + hr)
             thumbnail_dir = os.path.join(target_dir + date, hr, "thumbnails")
             ensure_dir_exists(thumbnail_dir)
