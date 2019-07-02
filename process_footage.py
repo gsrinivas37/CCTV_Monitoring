@@ -85,22 +85,21 @@ def move_videos(source_dir, target_dir, date, camera):
                 continue
 
 
-def generate_at_time(time,generate_hours_html=False):
-    cur_hour = '%02dhour'%(time.hour)
-    date = time.strftime("%Y-%m-%d")
-    for root_dir in photo_root_dirs:
-        if generate_hours_html == True:
+def update_html(updated_dirs):
+    updated_dates = set()
+    for dir in updated_dirs:
+        split = dir.split(":")
+        root_dir = split[0]
+        date = split[1]
+        hour = split[2]
+        date_dir = root_dir+":"+date
+        if not date_dir in updated_dates:
             generate_hours_html_on_date(root_dir,date)
-        generate_img_html_on_date_hour(root_dir,date,cur_hour)
-    for root_dir in video_root_dirs:
-        if generate_hours_html == True:
-            generate_hours_html_on_date(root_dir,date)
-        generate_vid_html_on_date_hour(root_dir,date,cur_hour)
-
-def generate_for_hours(hrs=3):
-    for hr in range(hrs):
-        now = datetime.datetime.now() - datetime.timedelta(hours=hr)
-        generate_at_time(now, generate_hours_html= (hr==0))
+            updated_dates.add(date_dir)
+        if "Photos" in root_dir:
+            generate_img_html_on_date_hour(root_dir,date,hour)
+        else:
+            generate_vid_html_on_date_hour(root_dir,date,hour)
 
 # Execution starts here...
 log_message("Running process_footage at: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
@@ -124,7 +123,7 @@ for date in stairs_date_dirs:
 
 log_message("Updated directories:"+str(updated_dirs))
 
-generate_for_hours()
+update_html(updated_dirs)
 generate_front_page()
 
 
