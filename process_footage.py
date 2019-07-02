@@ -4,12 +4,14 @@ import glob
 from shared import *
 
 gate_root_dir = "/mnt/hdd/tmp/GateCamera/"
-gate_target_imgs_dir = "/mnt/hdd/GatePhotos/"
-gate_target_vids_dir = "/mnt/hdd/GateVideos/"
+gate_target_imgs_dir = photo_root_dirs[0]
+gate_target_vids_dir = video_root_dirs[0]
 
 stairs_root_dir = "/mnt/hdd/tmp/StairsCamera/"
-stairs_target_imgs_dir = "/mnt/hdd/StairsPhotos/"
-stairs_target_vids_dir = "/mnt/hdd/StairsVideos/"
+stairs_target_imgs_dir = photo_root_dirs[1]
+stairs_target_vids_dir = video_root_dirs[1]
+
+updated_dirs = set()
 
 def get_hour_dir(img,camera):
     if camera.lower()=="gate":
@@ -47,6 +49,7 @@ def move_images(source_dir, target_dir, date, camera):
             dest_path = os.path.join(target_dir + date, hr, file_name)
             try:
                 shutil.move(img,dest_path)
+                updated_dirs.add(target_dir+":"+date+":"+hr)
             except Exception as ex:
                 log_message("Error moving file:"+img)
                 log_message(str(ex))
@@ -75,6 +78,7 @@ def move_videos(source_dir, target_dir, date, camera):
             ensure_dir_exists(target_dir + date + "/" + hr)
             try:
                 shutil.move(vid, target_dir + date + "/" + hr + "/" + os.path.split(vid)[1])
+                updated_dirs.add(target_dir+":"+date+":"+hr)
             except Exception as ex:
                 log_message("Error moving file:"+vid)
                 log_message(str(ex))
@@ -93,26 +97,10 @@ def generate_at_time(time,generate_hours_html=False):
             generate_hours_html_on_date(root_dir,date)
         generate_vid_html_on_date_hour(root_dir,date,cur_hour)
 
-
 def generate_for_hours(hrs=3):
     for hr in range(hrs):
         now = datetime.datetime.now() - datetime.timedelta(hours=hr)
         generate_at_time(now, generate_hours_html= (hr==0))
-
-
-def generate_all():
-    for root_dir in photo_root_dirs:
-        for dt_dir in get_sub_dirs(root_dir):
-            generate_hours_html_on_date(root_dir,dt_dir)
-            for hr_dir in get_sub_dirs(os.path.join(root_dir,dt_dir)):
-                generate_img_html_on_date_hour(root_dir,dt_dir,hr_dir)
-
-    for root_dir in video_root_dirs:
-        for dt_dir in get_sub_dirs(root_dir):
-            generate_hours_html_on_date(root_dir,dt_dir)
-            for hr_dir in get_sub_dirs(os.path.join(root_dir,dt_dir)):
-                generate_vid_html_on_date_hour(root_dir,dt_dir,hr_dir)
-
 
 # Execution starts here...
 log_message("Running process_footage at: " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
@@ -133,6 +121,8 @@ for date in stairs_date_dirs:
     source_dir = stairs_root_dir + date
     move_images(source_dir, stairs_target_imgs_dir, date, "stairs")
     move_videos(source_dir, stairs_target_vids_dir, date, "stairs")
+
+log_message("Updated directories:"+str(updated_dirs))
 
 generate_for_hours()
 generate_front_page()
