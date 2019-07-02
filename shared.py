@@ -43,6 +43,10 @@ def log_message(message):
 def check_hdd():
     try:
         os.listdir("/mnt/hdd")
+        os.listdir("/mnt/hdd/GatePhotos")
+        os.listdir("/mnt/hdd/StairsPhotos")
+        os.listdir("/mnt/hdd/tmp/GateCamera")
+        os.listdir("/mnt/hdd/tmp/StairsCamera")
         log_message("Hard disk is accessible")
         return True
     except Exception as error:
