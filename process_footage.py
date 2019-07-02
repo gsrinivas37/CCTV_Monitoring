@@ -42,11 +42,11 @@ def move_images(source_dir, target_dir, date, camera):
         ensure_dir_exists(target_dir + date)
         for img in imgs:
             hr = get_hour_dir(img,camera)
-            ensure_dir_exists(target_dir + date + "/" + hr)
-            thumbnail_dir = os.path.join(target_dir + date, hr, "thumbnails")
+            ensure_dir_exists(os.path.join(target_dir, date, hr))
+            thumbnail_dir = os.path.join(target_dir, date, hr, "thumbnails")
             ensure_dir_exists(thumbnail_dir)
             file_name = get_target_file_name(img, camera)
-            dest_path = os.path.join(target_dir + date, hr, file_name)
+            dest_path = os.path.join(target_dir, date, hr, file_name)
             try:
                 shutil.move(img,dest_path)
                 updated_dirs.add(target_dir+":"+date+":"+hr)
@@ -72,12 +72,12 @@ def move_videos(source_dir, target_dir, date, camera):
 
     print("No. of videos to be moved are :"+str(len(vids)))
     if len(vids)!=0:
-        ensure_dir_exists(target_dir + date)
+        ensure_dir_exists(target_dir + "/" + date)
         for vid in vids:
             hr = get_hour_dir(vid,camera)
-            ensure_dir_exists(target_dir + date + "/" + hr)
+            ensure_dir_exists(target_dir + "/" + date + "/" + hr)
             try:
-                shutil.move(vid, target_dir + date + "/" + hr + "/" + os.path.split(vid)[1])
+                shutil.move(vid, target_dir + "/" + date + "/" + hr + "/" + os.path.split(vid)[1])
                 updated_dirs.add(target_dir+":"+date+":"+hr)
             except Exception as ex:
                 log_message("Error moving file:"+vid)
