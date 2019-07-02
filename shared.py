@@ -199,6 +199,7 @@ def generate_links(root_dir, date_dir, hour_dir, f, isPersonDir=False):
         other_link, str2, othercam_link, str4))
     f.write('</h2>')
 
+
 def generate_vid_html_on_date_hour(root_dir, date_dir, hour_dir):
     if not os.path.exists(os.path.join(root_dir, date_dir, hour_dir)):
         return
@@ -218,6 +219,7 @@ def generate_vid_html_on_date_hour(root_dir, date_dir, hour_dir):
             f.write('<h2><a href=\"./%s\">%s</a> (%s)</h2>' % (vid, vid, GetHumanReadable(size)))
     f.write('</body></html>')
     f.close()
+
 
 def generate_hours_html_on_date(root_dir, date_dir):
     if not os.path.exists(root_dir+"/"+date_dir):
@@ -344,4 +346,3 @@ def generate_front_page():
 
     html = (html % (row_str))
     out.write(html)
-    log_message("\n")
