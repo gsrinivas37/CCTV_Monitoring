@@ -40,7 +40,7 @@ def move_images(source_dir, target_dir, date, camera):
 
     #print("No. of images to be moved are :"+str(len(imgs)))
     if len(imgs)!=0:
-        ensure_dir_exists(target_dir + date)
+        ensure_dir_exists(os.path.join(target_dir, date))
         for img in imgs:
             hr = get_hour_dir(img,camera)
             ensure_dir_exists(os.path.join(target_dir, date, hr))
