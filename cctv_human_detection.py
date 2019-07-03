@@ -12,7 +12,11 @@ def runOnDirectory(root_dir,date,hour):
     cur_dir = os.path.join(root_dir,date,hour)
     tar_dir = os.path.join(root_dir,date,hour,"persons")
 
-    print("Running on.. "+cur_dir)
+    if not os.path.exists(cur_dir):
+        log_message("Directory does not exists: "+cur_dir)
+        return 0
+
+    log_message("Running on.. "+cur_dir)
     images = get_files(cur_dir, "jpg")
     for x in images:
         try:
