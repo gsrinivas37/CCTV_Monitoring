@@ -1,7 +1,7 @@
 from shared import *
 
 def backup(date):
-    root_dir = photo_root_dirs[0]+date
+    root_dir = os.path.join(photo_root_dirs[0],date)
     target_dir = "/mnt/hdd/"+date
     ensure_dir_exists(target_dir)
     hours = get_sub_dirs(root_dir)
