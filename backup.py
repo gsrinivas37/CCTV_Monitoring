@@ -12,7 +12,8 @@ def backup(date):
         shutil.copytree(thumbnail_dir,os.path.join(target_dir,hour_dir,"thumbnails"))
         if os.path.exists(person_dir):
             person_list = get_files(person_dir,"jpg")
+            print("Copying full images in "+hour_dir+" Total images: "+person_list.count())
             for p in person_list:
-                print("Copy full image:"+p)
+                shutil.copy(os.path.join(root_dir,hour_dir,p),os.path.join(target_dir,hour_dir,p))
 
 backup("2019-07-13")
