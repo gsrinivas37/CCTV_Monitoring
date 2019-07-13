@@ -23,6 +23,7 @@ def backup(date):
                 os.remove(os.path.join(target_dir,hour_dir,"thumbnails",p))
                 shutil.copy(os.path.join(root_dir,hour_dir,p),os.path.join(target_dir,hour_dir,p))
 
+    print("Creating tar file...")
     make_tarfile("/mnt/hdd/gate.tar.gz",os.path.join(target_dir))
 
 backup("2019-07-13")
