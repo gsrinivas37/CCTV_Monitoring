@@ -14,6 +14,7 @@ def backup(date):
             person_list = get_files(person_dir,"jpg")
             print("Copying full images in "+hour_dir+" Total images: "+str(len(person_list)))
             for p in person_list:
+                os.remove(os.path.join(target_dir,hour_dir,"thumbnails",p))
                 shutil.copy(os.path.join(root_dir,hour_dir,p),os.path.join(target_dir,hour_dir,p))
 
 backup("2019-07-13")
