@@ -9,6 +9,8 @@ def backup(date):
         ensure_dir_exists(os.path.join(target_dir,hour_dir))
         images_list = get_files(os.path.join(root_dir,hour_dir),"jpg")
         person_dir = os.path.join(root_dir,hour_dir,"persons")
+        thumbnail_dir = os.path.join(root_dir,hour_dir,"thumbnails")
+        shutil.copytree(thumbnail_dir,os.path.join(target_dir,hour_dir,"thumbnails"))
         if os.path.exists(person_dir):
             person_list = get_files(person_dir,"jpg")
             for p in person_list:
