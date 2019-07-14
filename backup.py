@@ -6,7 +6,7 @@ def make_tarfile(output_filename, source_dir):
     with tarfile.open(output_filename, "w:gz") as tar:
         tar.add(source_dir, arcname=os.path.basename(source_dir))
 
-def backup(root_dir):
+def backup(root_dir,tar_file):
     target_dir = "/mnt/hdd/"+ os.path.basename(root_dir)
     ensure_dir_exists(target_dir)
     hours = get_sub_dirs(root_dir)
@@ -23,7 +23,12 @@ def backup(root_dir):
                 shutil.copy(os.path.join(root_dir,hour_dir,p),os.path.join(target_dir,hour_dir,p))
 
     print("Creating tar file...")
-    #make_tarfile("/mnt/hdd/gate.tar.gz",os.path.join(target_dir))
+    make_tarfile(tar_file,os.path.join(target_dir))
+    print("Deleting files...")
+    shutil.rmtree(target_dir)
 
 gate_root_dir = os.path.join(photo_root_dirs[0],"2019-07-13")
-backup(gate_root_dir)
+backup(gate_root_dir,"/mnt/hdd/gate.tar.gz")
+
+stairs_root_dir = os.path.join(photo_root_dirs[1],"2019-07-13")
+backup(stairs_root_dir,"/mnt/hdd/stairs.tar.gz")
