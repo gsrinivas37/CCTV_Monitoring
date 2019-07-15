@@ -25,6 +25,12 @@ def remove_duplicates(cur_dir):
         if(diff<100):
             to_del.append(imgs[index])
 
+    for img in to_del:
+        try:
+            os.remove(os.path.join(cur_dir,img))
+            os.remove(os.path.join(cur_dir,"thumbnails",img))
+        except Exception as error:
+            print("Error deleting duplicate image:"+img)
     print("Total items to be deleted: %d out of %d" % (len(to_del),len(imgs)))
 
 def runOnDirectory(root_dir,date,hour):
