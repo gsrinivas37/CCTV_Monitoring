@@ -3,14 +3,14 @@ from shared import *
 if not check_hdd():
     exit(0)
 
-past_time = datetime.datetime.now() - datetime.timedelta(days=6)
+past_time = datetime.datetime.now() - datetime.timedelta(days=1)
 past_date = past_time.strftime("%Y-%m-%d")
 
 for photo_root in photo_root_dirs:
     date_dir = os.path.join(photo_root, past_date)
     if os.path.exists(date_dir):
         save_space_video(date_dir)
-        save_space_image(date_dir)
+        #save_space_image(date_dir)
 
 for video_root in video_root_dirs:
     date_dir = os.path.join(video_root,past_date)

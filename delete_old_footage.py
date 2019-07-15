@@ -4,10 +4,10 @@ import shutil
 from shared import get_sub_dirs
 
 expiry_date_dictionary = {
-  "/mnt/hdd/GatePhotos": 60,
-  "/mnt/hdd/StairsPhotos": 60,
-  "/mnt/hdd/GateVideos": 45,
-  "/mnt/hdd/StairsVideos": 30,
+  "/mnt/hdd/GatePhotos": 5,
+  "/mnt/hdd/StairsPhotos": 5,
+  "/mnt/hdd/GateVideos": 3,
+  "/mnt/hdd/StairsVideos": 3,
   "/mnt/hdd/tmp/GateCamera": 0,
   "/mnt/hdd/tmp/StairsCamera": 0
 }
