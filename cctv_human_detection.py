@@ -7,6 +7,25 @@ import os.path
 from shared import *
 from detector import DetectorAPI
 
+def remove_duplicates(cur_dir):
+    imgs = get_files(cur_dir,"jpg")
+    imgs.sort()
+    to_del = []
+    for index in range(0,len(imgs)-1):
+        one = cv2.imread(os.path.join(cur_dir,imgs[index]))
+        one = cv2.resize(one, (640, 360))
+        two = cv2.imread(os.path.join(cur_dir,imgs[index+1]))
+        two = cv2.resize(two, (640, 360))
+
+        # convert the images to grayscale
+        one = cv2.cvtColor(one, cv2.COLOR_BGR2GRAY)
+        two = cv2.cvtColor(two, cv2.COLOR_BGR2GRAY)
+
+        diff = mse(one,two)
+        if(diff<100):
+            to_del.append(imgs[index])
+
+    print("Total items to be deleted: %d out of %d" % (len(to_del),len(imgs)))
 
 def runOnDirectory(root_dir,date,hour):
     cur_dir = os.path.join(root_dir,date,hour)
@@ -17,6 +36,7 @@ def runOnDirectory(root_dir,date,hour):
         return 0
 
     log_message("Running on.. "+cur_dir)
+    remove_duplicates(cur_dir)
     images = get_files(cur_dir, "jpg")
     for x in images:
         try:
