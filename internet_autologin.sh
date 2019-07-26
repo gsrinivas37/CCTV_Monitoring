@@ -9,7 +9,7 @@ if [[ "$status" == *login ]]; then
 	    touch /home/pi/www/logs/internet_autologin/nonet
 	fi
     else
-        echo "Auto logged on $(date)" >> /home/pi/www/logs/internet_autologin/log.txt
+        echo "Auto logged on $(date)" >> /mnt/hdd/logs/internet_autologin/log.txt
 	rm /home/pi/www/logs/internet_autologin/nonet
     fi
 fi

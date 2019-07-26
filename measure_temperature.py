@@ -7,7 +7,7 @@ def measure_temp():
         return (temp.replace("temp=",""))
 
 cur_time = datetime.datetime.now()
-temp_log = "/home/pi/www/logs/temperature/log_"+cur_time.strftime("%Y-%m-%d")+".txt"
+temp_log = "/mnt/hdd/logs/temperature/log_"+cur_time.strftime("%Y-%m-%d")+".txt"
 str = ("Temperature measured at %s is %s")% (cur_time.strftime("%Y-%m-%d %H:%M"), measure_temp())
 print(str)
 
